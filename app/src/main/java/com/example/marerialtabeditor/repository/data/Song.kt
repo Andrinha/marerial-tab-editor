@@ -1,6 +1,6 @@
 package com.example.marerialtabeditor.repository.data
 
-data class Song(val notes: MutableList<Note>, var name: String = "", var band: String = "") {
+class Song(val notes: MutableList<Note>, var name: String = "baba", var band: String = "baba") {
 
     fun addEmptyChunk() {
         repeat(6 * 8) {

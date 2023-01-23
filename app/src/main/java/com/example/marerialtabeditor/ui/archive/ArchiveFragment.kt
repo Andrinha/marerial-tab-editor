@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.marerialtabeditor.R
 import com.example.marerialtabeditor.adapters.SongAdapter
 import com.example.marerialtabeditor.databinding.FragmentArchiveBinding
-import com.example.marerialtabeditor.utils.Hardcoded
+import com.google.android.material.snackbar.Snackbar
 
 class ArchiveFragment : Fragment() {
 
@@ -49,16 +49,27 @@ class ArchiveFragment : Fragment() {
 
         viewModel.apply {
             searchQuery.observe(viewLifecycleOwner) { query ->
-                adapter.setQuery(query)
-                viewModel.songs.value = viewModel.songs.value!!
+                if (!songs.value.isNullOrEmpty()) {
+                    adapter.setQuery(query)
+                    viewModel.songs.value = viewModel.songs.value!!
+                }
             }
             songs.observe(viewLifecycleOwner) { items ->
-                val data = items.filter {
-                    it.name.contains(viewModel.searchQuery.value!!, ignoreCase = true)
-                            || it.band.contains(viewModel.searchQuery.value!!, ignoreCase = true)
+                if (!items.isNullOrEmpty()) {
+                    val data = items.filter {
+                        it.name.contains(viewModel.searchQuery.value!!, ignoreCase = true)
+                                || it.band.contains(
+                            viewModel.searchQuery.value!!,
+                            ignoreCase = true
+                        )
+                    }
+                    adapter.setData(data)
                 }
-                adapter.setData(data)
             }
+            tabs.observe(viewLifecycleOwner) { tabs ->
+                viewModel.songs.value = tabs.map { it.song }
+            }
+
         }
 
 //        binding.buttonFirst.setOnClickListener {

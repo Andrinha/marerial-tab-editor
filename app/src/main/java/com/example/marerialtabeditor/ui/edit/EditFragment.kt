@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.room.Room
 import com.example.marerialtabeditor.R
 import com.example.marerialtabeditor.adapters.NoteAdapter
 import com.example.marerialtabeditor.databinding.FragmentEditBinding
 import com.example.marerialtabeditor.repository.data.Note
+import com.example.marerialtabeditor.repository.data.tab.AppDatabase
+import com.example.marerialtabeditor.repository.data.tab.Tab
 import com.example.marerialtabeditor.utils.onItemClick
 
 class EditFragment : Fragment() {
@@ -47,37 +50,38 @@ class EditFragment : Fragment() {
                 data.addEmptyChunk()
                 viewModel.song.value = data
             }
+            buttonSave.setOnClickListener {
+                insertDataToDatabase()
+            }
             buttonFretInc.setOnClickListener {
                 val focus = viewModel.focus.value!!
                 val note = adapter.getNote(focus)
                 note.fret++
-                adapter.setNote(focus, note)
-                textFret.text = note.toString()
+                viewModel.setNote(focus, note)
             }
             buttonFretDesc.setOnClickListener {
                 val focus = viewModel.focus.value!!
                 val note = adapter.getNote(focus)
                 note.fret--
-                adapter.setNote(focus, note)
-                textFret.text = note.toString()
+                viewModel.setNote(focus, note)
             }
             buttonFlagDefault.setOnClickListener {
                 val focus = viewModel.focus.value!!
                 val note = adapter.getNote(focus)
-                note.type = Note.Flags.DEFAULT
-                adapter.setNote(focus, note)
+                note.type = Note.Type.DEFAULT
+                viewModel.setNote(focus, note)
             }
             buttonFlagHarmonic.setOnClickListener {
                 val focus = viewModel.focus.value!!
                 val note = adapter.getNote(focus)
-                note.type = Note.Flags.HARMONIC
-                adapter.setNote(focus, note)
+                note.type = Note.Type.HARMONIC
+                viewModel.setNote(focus, note)
             }
             buttonFlagMuted.setOnClickListener {
                 val focus = viewModel.focus.value!!
                 val note = adapter.getNote(focus)
-                note.type = Note.Flags.MUTED
-                adapter.setNote(focus, note)
+                note.type = Note.Type.MUTED
+                viewModel.setNote(focus, note)
             }
         }
         viewModel.apply {
@@ -87,13 +91,31 @@ class EditFragment : Fragment() {
             focus.observe(viewLifecycleOwner) {
                 adapter.setFocus(it)
                 when (adapter.getNote(it).type) {
-                    Note.Flags.DEFAULT -> binding.toggleButton.check(R.id.buttonFlagDefault)
-                    Note.Flags.HARMONIC -> binding.toggleButton.check(R.id.buttonFlagHarmonic)
-                    Note.Flags.MUTED -> binding.toggleButton.check(R.id.buttonFlagMuted)
+                    Note.Type.DEFAULT -> binding.toggleButton.check(R.id.buttonFlagDefault)
+                    Note.Type.HARMONIC -> binding.toggleButton.check(R.id.buttonFlagHarmonic)
+                    Note.Type.MUTED -> binding.toggleButton.check(R.id.buttonFlagMuted)
                 }
                 binding.textFret.text = adapter.getNote(it).toString()
             }
         }
+    }
+
+    private fun insertDataToDatabase() {
+        val tab = Tab(
+            0,
+            viewModel.song.value!!
+        )
+        addTab(tab)
+    }
+
+    private fun addTab(tab: Tab) {
+        val db = Room.databaseBuilder(
+            requireContext(),
+            AppDatabase::class.java, "database"
+        ).allowMainThreadQueries().build()
+
+        val dao = db.tabDao()
+        dao.addTab(tab)
     }
 
     override fun onDestroyView() {

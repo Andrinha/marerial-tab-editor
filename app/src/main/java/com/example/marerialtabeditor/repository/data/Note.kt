@@ -1,26 +1,26 @@
 package com.example.marerialtabeditor.repository.data
 
 class Note(fret: Int) {
-    var type: Flags = Flags.DEFAULT
+    var type: Type = Type.DEFAULT
     var fret: Int = fret
         set(value) {field = if (value < -1) -1 else value}
 
-    enum class Flags {
+    enum class Type {
         DEFAULT, HARMONIC, MUTED
     }
 
     override fun toString(): String {
         return when (type) {
-            Flags.MUTED -> {
+            Type.MUTED -> {
                 "X"
             }
-            Flags.HARMONIC -> {
+            Type.HARMONIC -> {
                 if (fret == -1)
                     ""
                 else
                     "<$fret>"
             }
-            Flags.DEFAULT -> {
+            Type.DEFAULT -> {
                 if (fret == -1) {
                     ""
                 } else {
