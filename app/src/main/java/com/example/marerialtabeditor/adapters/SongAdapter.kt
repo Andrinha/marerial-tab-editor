@@ -1,6 +1,9 @@
 package com.example.marerialtabeditor.adapters
 
 import android.annotation.SuppressLint
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,10 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.marerialtabeditor.R
 import com.example.marerialtabeditor.databinding.ItemSongBinding
 import com.example.marerialtabeditor.repository.data.Song
+import com.example.marerialtabeditor.utils.themeColor
 import java.util.*
 
 class SongAdapter : RecyclerView.Adapter<SongAdapter.ViewHolder>() {
-    private var data = emptyList<Song>()
+    private var list = emptyList<Song>()
+    private var query = ""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_song, parent, false)
@@ -19,27 +24,57 @@ class SongAdapter : RecyclerView.Adapter<SongAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(list[position], query)
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return list.size
+    }
+
+    fun setQuery(query: String) {
+        this.query = query
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(data: List<Song>) {
-        this.data = data
+        this.list = data
         notifyDataSetChanged()
     }
 
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = ItemSongBinding.bind(item)
-        fun bind(song: Song) = with(binding) {
+        fun bind(song: Song, query: String) = with(binding) {
             textName.text = song.name
             textBand.text = song.band
             cardMain.setOnLongClickListener {
                 cardMain.isChecked = !cardMain.isChecked
                 true
+            }
+
+            if (query.isNotEmpty()) {
+                val indexName = song.name.indexOf(query, ignoreCase = true)
+                if (indexName >= 0) {
+                    val content = SpannableString(textName.text)
+                    content.setSpan(
+                        ForegroundColorSpan(itemView.context.themeColor(com.google.android.material.R.attr.colorTertiary)),
+                        indexName,
+                        indexName + query.length,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    textName.text = content
+                }
+
+                val indexBand = song.band.indexOf(query, ignoreCase = true)
+                if (indexBand >= 0) {
+                    val content = SpannableString(textBand.text)
+                    content.setSpan(
+                        ForegroundColorSpan(itemView.context.themeColor(com.google.android.material.R.attr.colorTertiary)),
+                        indexBand,
+                        indexBand + query.length,
+                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    textBand.text = content
+                }
             }
         }
     }

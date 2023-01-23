@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.marerialtabeditor.R
 import com.example.marerialtabeditor.adapters.SongAdapter
@@ -18,6 +19,7 @@ class ArchiveFragment : Fragment() {
     private var _binding: FragmentArchiveBinding? = null
     private val binding get() = _binding!!
     private val adapter = SongAdapter()
+    private val viewModel: ArchiveViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +41,24 @@ class ArchiveFragment : Fragment() {
                 StaggeredGridLayoutManager.VERTICAL
             )
             recyclerSongs.adapter = adapter
-            adapter.setData(Hardcoded().songs)
+
+            editSearch.addTextChangedListener {
+                viewModel.searchQuery.value = it.toString()
+            }
+        }
+
+        viewModel.apply {
+            searchQuery.observe(viewLifecycleOwner) { query ->
+                adapter.setQuery(query)
+                viewModel.songs.value = viewModel.songs.value!!
+            }
+            songs.observe(viewLifecycleOwner) { items ->
+                val data = items.filter {
+                    it.name.contains(viewModel.searchQuery.value!!, ignoreCase = true)
+                            || it.band.contains(viewModel.searchQuery.value!!, ignoreCase = true)
+                }
+                adapter.setData(data)
+            }
         }
 
 //        binding.buttonFirst.setOnClickListener {
