@@ -54,34 +54,44 @@ class EditFragment : Fragment() {
                 insertDataToDatabase()
             }
             buttonFretInc.setOnClickListener {
-                val focus = viewModel.focus.value!!
-                val note = adapter.getNote(focus)
-                note.fret++
-                viewModel.setNote(focus, note)
+                if (viewModel.focus.value != null) {
+                    val focus = viewModel.focus.value!!
+                    val note = adapter.getNote(focus)
+                    note.fret++
+                    viewModel.setNote(focus, note)
+                }
             }
             buttonFretDesc.setOnClickListener {
-                val focus = viewModel.focus.value!!
-                val note = adapter.getNote(focus)
-                note.fret--
-                viewModel.setNote(focus, note)
+                if (viewModel.focus.value != null) {
+                    val focus = viewModel.focus.value!!
+                    val note = adapter.getNote(focus)
+                    note.fret--
+                    viewModel.setNote(focus, note)
+                }
             }
             buttonFlagDefault.setOnClickListener {
-                val focus = viewModel.focus.value!!
-                val note = adapter.getNote(focus)
-                note.type = Note.Type.DEFAULT
-                viewModel.setNote(focus, note)
+                if (viewModel.focus.value != null) {
+                    val focus = viewModel.focus.value!!
+                    val note = adapter.getNote(focus)
+                    note.type = Note.Type.DEFAULT
+                    viewModel.setNote(focus, note)
+                }
             }
             buttonFlagHarmonic.setOnClickListener {
-                val focus = viewModel.focus.value!!
-                val note = adapter.getNote(focus)
-                note.type = Note.Type.HARMONIC
-                viewModel.setNote(focus, note)
+                if (viewModel.focus.value != null) {
+                    val focus = viewModel.focus.value!!
+                    val note = adapter.getNote(focus)
+                    note.type = Note.Type.HARMONIC
+                    viewModel.setNote(focus, note)
+                }
             }
             buttonFlagMuted.setOnClickListener {
-                val focus = viewModel.focus.value!!
-                val note = adapter.getNote(focus)
-                note.type = Note.Type.MUTED
-                viewModel.setNote(focus, note)
+                if (viewModel.focus.value != null) {
+                    val focus = viewModel.focus.value!!
+                    val note = adapter.getNote(focus)
+                    note.type = Note.Type.MUTED
+                    viewModel.setNote(focus, note)
+                }
             }
         }
         viewModel.apply {
@@ -91,9 +101,9 @@ class EditFragment : Fragment() {
             focus.observe(viewLifecycleOwner) {
                 adapter.setFocus(it)
                 when (adapter.getNote(it).type) {
-                    Note.Type.DEFAULT -> binding.toggleButton.check(R.id.buttonFlagDefault)
-                    Note.Type.HARMONIC -> binding.toggleButton.check(R.id.buttonFlagHarmonic)
-                    Note.Type.MUTED -> binding.toggleButton.check(R.id.buttonFlagMuted)
+                    Note.Type.DEFAULT -> binding.toggleButton.check(R.id.button_flag_default)
+                    Note.Type.HARMONIC -> binding.toggleButton.check(R.id.button_flag_harmonic)
+                    Note.Type.MUTED -> binding.toggleButton.check(R.id.button_flag_muted)
                 }
                 binding.textFret.text = adapter.getNote(it).toString()
             }

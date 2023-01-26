@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.marerialtabeditor.R
 import com.example.marerialtabeditor.adapters.SongAdapter
 import com.example.marerialtabeditor.databinding.FragmentArchiveBinding
-import com.google.android.material.snackbar.Snackbar
 
 class ArchiveFragment : Fragment() {
 

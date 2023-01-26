@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_margin"
-        android:text="Save"
+        android:text="@string/save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_add_chunk" />
 
@@ -78,12 +78,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_margin"
-        android:text="Add chunk"
+        android:text="@string/add_chunk"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView"
+        android:id="@+id/materialCardView2"
         android:layout_width="0dp"
         android:layout_height="150dp"
         android:layout_marginStart="@dimen/half_margin"
@@ -101,10 +101,10 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.7"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/half_margin"
                 android:gravity="center|bottom"
-                android:text="Fret"
+                android:text="@string/fret"
                 android:textSize="20sp" />
 
             <LinearLayout
@@ -121,6 +121,8 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/half_margin"
                     android:layout_weight="1"
+                    android:insetLeft="0dp"
+                    android:insetRight="0dp"
                     app:icon="@drawable/round_arrow_back_24"
                     app:iconGravity="textStart" />
 
@@ -141,6 +143,8 @@
                     android:layout_gravity="center"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
+                    android:insetLeft="0dp"
+                    android:insetRight="0dp"
                     app:icon="@drawable/round_arrow_forward_24"
                     app:iconGravity="textStart" />
             </LinearLayout>
@@ -156,32 +160,165 @@
                 app:singleSelection="true">
 
                 <Button
-                    android:id="@+id/buttonFlagDefault"
+                    android:id="@+id/button_flag_default"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Default" />
+                    android:text="@string/default_text" />
 
                 <Button
-                    android:id="@+id/buttonFlagHarmonic"
+                    android:id="@+id/button_flag_harmonic"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Harmonic" />
+                    android:text="@string/harmonic" />
 
                 <Button
-                    android:id="@+id/buttonFlagMuted"
+                    android:id="@+id/button_flag_muted"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Muted" />
+                    android:text="@string/muted" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="@dimen/half_margin"
+        android:layout_marginEnd="@dimen/half_margin"
+        app:cardCornerRadius="@dimen/half_margin"
+        app:layout_constraintBottom_toTopOf="@+id/materialCardView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/half_margin"
+                android:gravity="center|bottom"
+                android:text="@string/bpm"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_bpm_desc"
+                    style="?attr/materialIconButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/half_margin"
+                    android:layout_weight="1"
+                    android:insetLeft="0dp"
+                    android:insetRight="0dp"
+                    app:icon="@drawable/round_arrow_back_24"
+                    app:iconGravity="textStart" />
+
+                <TextView
+                    android:id="@+id/text_bpm"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    tools:text="120" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_bpm_inc"
+                    style="?attr/materialIconButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:insetLeft="0dp"
+                    android:insetRight="0dp"
+                    app:icon="@drawable/round_arrow_forward_24"
+                    app:iconGravity="textStart" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/toggleBPM"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/half_margin"
+                android:layout_marginEnd="@dimen/half_margin"
+                android:layout_marginBottom="@dimen/half_margin"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+                <Button
+                    android:id="@+id/button_instrument_guitar"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/guitar" />
+
+                <Button
+                    android:id="@+id/button_instrument_bass"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/bass" />
+
+                <Button
+                    android:id="@+id/button_instrument_nylon"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/nylon" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/half_margin"
+        app:layout_constraintEnd_toStartOf="@+id/button_add_chunk"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/half_margin"
+        app:layout_constraintEnd_toStartOf="@+id/button_add_chunk"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/band" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
