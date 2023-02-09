@@ -1,2 +1,2 @@
-# marerial-tab-editor
+# material-tab-editor
 WIP
