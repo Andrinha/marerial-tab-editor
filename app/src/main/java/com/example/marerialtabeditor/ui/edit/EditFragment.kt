@@ -2,6 +2,7 @@ package com.example.marerialtabeditor.ui.edit
 
 import android.content.res.AssetFileDescriptor
 import android.content.res.AssetManager
+import android.graphics.Rect
 import android.media.AudioAttributes
 import android.media.SoundPool
 import android.os.Bundle
@@ -11,6 +12,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.room.Room
 import com.example.marerialtabeditor.R
 import com.example.marerialtabeditor.adapters.NoteAdapter
@@ -20,6 +23,7 @@ import com.example.marerialtabeditor.repository.data.tab.AppDatabase
 import com.example.marerialtabeditor.repository.data.tab.Tab
 import com.example.marerialtabeditor.utils.onItemClick
 import java.io.IOException
+
 
 class EditFragment : Fragment() {
 
@@ -64,6 +68,20 @@ class EditFragment : Fragment() {
             binding.recyclerSong.onItemClick {
                 viewModel.focus.value = it
             }
+            recyclerSong.setPadding(0,0,0,0)
+            recyclerSong.clipToPadding = false
+            recyclerSong.clipChildren = false
+            recyclerSong.addItemDecoration(object: ItemDecoration() {
+                override fun getItemOffsets(
+                    outRect: Rect,
+                    view: View,
+                    parent: RecyclerView,
+                    state: RecyclerView.State
+                ) {
+                    //super.getItemOffsets(outRect, view, parent, state)
+                    outRect.set(0,0,0,0)
+                }
+            })
             buttonAddBlock.setOnClickListener {
                 val data = viewModel.song.value!!
                 data.addEmptyChunk()
