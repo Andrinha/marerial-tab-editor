@@ -1,5 +1,9 @@
 package com.example.marerialtabeditor.ui.edit
 
+import android.content.res.AssetFileDescriptor
+import android.content.res.AssetManager
+import android.media.AudioAttributes
+import android.media.SoundPool
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +19,7 @@ import com.example.marerialtabeditor.repository.data.Note
 import com.example.marerialtabeditor.repository.data.tab.AppDatabase
 import com.example.marerialtabeditor.repository.data.tab.Tab
 import com.example.marerialtabeditor.utils.onItemClick
+import java.io.IOException
 
 class EditFragment : Fragment() {
 
@@ -22,6 +27,20 @@ class EditFragment : Fragment() {
     private val binding get() = _binding!!
     private val adapter = NoteAdapter()
     private val viewModel: EditViewModel by viewModels()
+    private val soundPool: SoundPool by lazy {
+        val attributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_GAME)
+            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+            .build()
+        SoundPool.Builder()
+            .setAudioAttributes(attributes)
+            .setMaxStreams(10)
+            .build()
+    }
+    private val assetManager: AssetManager by lazy {
+        requireActivity().assets
+    }
+    private var streamID = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +64,7 @@ class EditFragment : Fragment() {
             binding.recyclerSong.onItemClick {
                 viewModel.focus.value = it
             }
-            buttonAddChunk.setOnClickListener {
+            buttonAddBlock.setOnClickListener {
                 val data = viewModel.song.value!!
                 data.addEmptyChunk()
                 viewModel.song.value = data
@@ -108,6 +127,22 @@ class EditFragment : Fragment() {
                 binding.textFret.text = adapter.getNote(it).toString()
             }
         }
+    }
+
+    private fun loadSound(fileName: String): Int {
+        val afd: AssetFileDescriptor = try {
+            assetManager.openFd(fileName)
+        } catch (e: IOException) {
+            return -1
+        }
+        return soundPool.load(afd, 1)
+    }
+
+    private fun playSound(sound: Int): Int {
+        if (sound > 0) {
+            streamID = soundPool.play(sound, 1F, 1F, 1, 0, 1F)
+        }
+        return streamID
     }
 
     private fun insertDataToDatabase() {

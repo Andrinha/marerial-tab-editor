@@ -6,16 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.edit.EditFragment">
 
-    <Button
-        android:id="@+id/button_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/default_margin"
-        android:text="@string/save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_add_chunk" />
-
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="?colorPrimaryContainer"
@@ -73,26 +65,14 @@
         tools:itemCount="1"
         tools:listitem="@layout/item_chunk" />
 
-    <Button
-        android:id="@+id/button_add_chunk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/default_margin"
-        android:text="@string/add_chunk"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView2"
         android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="@dimen/half_margin"
-        android:layout_marginEnd="@dimen/half_margin"
-        android:layout_marginBottom="@dimen/default_margin"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/half_margin"
         app:layout_constraintBottom_toTopOf="@+id/recycler_song"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.5">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -190,13 +170,11 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
         android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="@dimen/half_margin"
-        android:layout_marginEnd="@dimen/half_margin"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/half_margin"
-        app:layout_constraintBottom_toTopOf="@+id/materialCardView2"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintWidth_percent="0.5">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -224,6 +202,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/half_margin"
+                    android:layout_marginEnd="@dimen/half_margin"
                     android:layout_weight="1"
                     android:insetLeft="0dp"
                     android:insetRight="0dp"
@@ -245,6 +224,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/half_margin"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     android:insetLeft="0dp"
@@ -260,6 +240,7 @@
                 android:layout_marginStart="@dimen/half_margin"
                 android:layout_marginEnd="@dimen/half_margin"
                 android:layout_marginBottom="@dimen/half_margin"
+                android:visibility="visible"
                 app:selectionRequired="true"
                 app:singleSelection="true">
 
@@ -269,7 +250,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/guitar" />
+                    android:text="@string/acoustic" />
+
+                <Button
+                    android:id="@+id/button_instrument_nylon"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/nylon" />
 
                 <Button
                     android:id="@+id/button_instrument_bass"
@@ -279,46 +268,159 @@
                     android:layout_weight="1"
                     android:text="@string/bass" />
 
-                <Button
-                    android:id="@+id/button_instrument_nylon"
-                    style="?attr/materialButtonOutlinedStyle"
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_play"
+                    style="?attr/materialIconButtonOutlinedStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/half_margin"
                     android:layout_weight="1"
-                    android:text="@string/nylon" />
-            </com.google.android.material.button.MaterialButtonToggleGroup>
+                    android:insetLeft="0dp"
+                    android:insetRight="0dp"
+                    app:icon="@drawable/round_play_arrow_24"
+                    app:iconGravity="textStart" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_pause"
+                    style="?attr/materialIconButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/half_margin"
+                    android:layout_marginEnd="@dimen/half_margin"
+                    android:layout_weight="1"
+                    android:insetLeft="0dp"
+                    android:insetRight="0dp"
+                    app:icon="@drawable/round_pause_24"
+                    app:iconGravity="textStart" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_stop"
+                    style="?attr/materialIconButtonOutlinedStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/half_margin"
+                    android:layout_weight="1"
+                    android:insetLeft="0dp"
+                    android:insetRight="0dp"
+                    app:icon="@drawable/round_stop_24"
+                    app:iconGravity="textStart" />
+            </LinearLayout>
+
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/half_margin"
-        app:layout_constraintEnd_toStartOf="@+id/button_add_chunk"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/materialCardView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/name" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/half_margin"
-        app:layout_constraintEnd_toStartOf="@+id/button_add_chunk"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/band" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/half_margin">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/name" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/half_margin"
+                android:layout_marginEnd="@dimen/half_margin">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/band" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/button_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/half_margin"
+                android:text="@string/save" />
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/half_margin"
+            android:layout_weight="1"
+            app:cardCornerRadius="@dimen/half_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/half_margin"
+                    android:gravity="center|bottom"
+                    android:text="@string/blocks"
+                    android:textSize="20sp" />
+
+                <Button
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/half_margin"
+                    android:layout_marginEnd="@dimen/half_margin"
+                    android:text="@string/copy" />
+
+                <Button
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/half_margin"
+                    android:layout_marginEnd="@dimen/half_margin"
+                    android:text="@string/paste" />
+
+                <Button
+                    android:id="@+id/button_add_block"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/half_margin"
+                    android:layout_marginEnd="@dimen/half_margin"
+                    android:text="@string/add" />
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

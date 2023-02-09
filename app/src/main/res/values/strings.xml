@@ -19,4 +19,9 @@
     <string name="guitar">Guitar</string>
     <string name="bass">Bass</string>
     <string name="nylon">Nylon</string>
+    <string name="acoustic">Acoustic</string>
+    <string name="blocks">Blocks</string>
+    <string name="copy">Copy</string>
+    <string name="paste">Paste</string>
+    <string name="add">Add</string>
 </resources>
