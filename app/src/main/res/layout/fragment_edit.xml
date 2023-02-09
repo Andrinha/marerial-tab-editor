@@ -17,14 +17,16 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/half_margin"
+            android:layout_marginTop="@dimen/half_margin"
+            android:layout_marginEnd="@dimen/quarter_margin"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/half_margin">
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -35,9 +37,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/half_margin"
-                android:layout_marginEnd="@dimen/half_margin">
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -52,6 +52,7 @@
             android:id="@+id/button_save"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/quarter_margin"
             android:layout_marginTop="@dimen/half_margin"
             android:layout_marginEnd="@dimen/half_margin"
             android:layout_weight="1"
@@ -419,9 +420,9 @@
             android:id="@+id/recycler_song"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="@dimen/default_margin"
             android:clipToPadding="false"
             android:orientation="horizontal"
-            android:layout_margin="@dimen/default_margin"
             android:scrollbars="horizontal"
             tools:itemCount="6"
             tools:listitem="@layout/item_note" />
