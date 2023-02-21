@@ -1,10 +1,6 @@
 package com.example.marerialtabeditor.ui.edit
 
-import android.content.res.AssetFileDescriptor
-import android.content.res.AssetManager
 import android.graphics.Rect
-import android.media.AudioAttributes
-import android.media.SoundPool
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +18,6 @@ import com.example.marerialtabeditor.repository.data.Note
 import com.example.marerialtabeditor.repository.data.tab.AppDatabase
 import com.example.marerialtabeditor.repository.data.tab.Tab
 import com.example.marerialtabeditor.utils.onItemClick
-import java.io.IOException
 
 
 class EditFragment : Fragment() {
@@ -31,20 +26,6 @@ class EditFragment : Fragment() {
     private val binding get() = _binding!!
     private val adapter = NoteAdapter()
     private val viewModel: EditViewModel by viewModels()
-    private val soundPool: SoundPool by lazy {
-        val attributes = AudioAttributes.Builder()
-            .setUsage(AudioAttributes.USAGE_GAME)
-            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-            .build()
-        SoundPool.Builder()
-            .setAudioAttributes(attributes)
-            .setMaxStreams(10)
-            .build()
-    }
-    private val assetManager: AssetManager by lazy {
-        requireActivity().assets
-    }
-    private var streamID = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,31 +38,36 @@ class EditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
         binding.apply {
-            recyclerSong.layoutManager = GridLayoutManager(
-                requireContext(),
-                6,
-                GridLayoutManager.HORIZONTAL,
-                false
-            )
-            recyclerSong.adapter = adapter
-            binding.recyclerSong.onItemClick {
-                viewModel.focus.value = it
-            }
-            recyclerSong.setPadding(0,0,0,0)
-            recyclerSong.clipToPadding = false
-            recyclerSong.clipChildren = false
-            recyclerSong.addItemDecoration(object: ItemDecoration() {
-                override fun getItemOffsets(
-                    outRect: Rect,
-                    view: View,
-                    parent: RecyclerView,
-                    state: RecyclerView.State
-                ) {
-                    //super.getItemOffsets(outRect, view, parent, state)
-                    outRect.set(0,0,0,0)
+            recyclerSong.apply {
+                layoutManager = GridLayoutManager(
+                    requireContext(),
+                    6,
+                    GridLayoutManager.HORIZONTAL,
+                    false
+                )
+                adapter = this@EditFragment.adapter
+                recyclerSong.onItemClick {
+                    viewModel.focus.value = it
                 }
-            })
+                setPadding(0, 0, 0, 0)
+                clipToPadding = false
+                clipChildren = false
+                addItemDecoration(object : ItemDecoration() {
+                    override fun getItemOffsets(
+                        outRect: Rect,
+                        view: View,
+                        parent: RecyclerView,
+                        state: RecyclerView.State
+                    ) {
+                        //super.getItemOffsets(outRect, view, parent, state)
+                        outRect.set(0, 0, 0, 0)
+                    }
+                })
+            }
+
             buttonAddBlock.setOnClickListener {
                 val data = viewModel.song.value!!
                 data.addEmptyChunk()
@@ -96,6 +82,14 @@ class EditFragment : Fragment() {
                     val note = adapter.getNote(focus)
                     note.fret++
                     viewModel.setNote(focus, note)
+                    if (note.fret != -1)
+                        viewModel.playSound(
+                            viewModel.loaded.value?.getOrNull(
+                                note.fret + getOffset(
+                                    focus
+                                )
+                            ) ?: -1
+                        )
                 }
             }
             buttonFretDesc.setOnClickListener {
@@ -104,6 +98,14 @@ class EditFragment : Fragment() {
                     val note = adapter.getNote(focus)
                     note.fret--
                     viewModel.setNote(focus, note)
+                    if (note.fret != -1)
+                        viewModel.playSound(
+                            viewModel.loaded.value?.getOrNull(
+                                note.fret + getOffset(
+                                    focus
+                                )
+                            ) ?: -1
+                        )
                 }
             }
             buttonFlagDefault.setOnClickListener {
@@ -147,21 +149,16 @@ class EditFragment : Fragment() {
         }
     }
 
-    private fun loadSound(fileName: String): Int {
-        val afd: AssetFileDescriptor = try {
-            assetManager.openFd(fileName)
-        } catch (e: IOException) {
-            return -1
+    private fun getOffset(focus: Int): Int =
+        when (focus.mod(6)) {
+            0 -> 24
+            1 -> 19
+            2 -> 15
+            3 -> 10
+            4 -> 5
+            5 -> 0
+            else -> 0
         }
-        return soundPool.load(afd, 1)
-    }
-
-    private fun playSound(sound: Int): Int {
-        if (sound > 0) {
-            streamID = soundPool.play(sound, 1F, 1F, 1, 0, 1F)
-        }
-        return streamID
-    }
 
     private fun insertDataToDatabase() {
         val tab = Tab(

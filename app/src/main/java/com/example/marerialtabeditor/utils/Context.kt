@@ -7,5 +7,5 @@ import androidx.annotation.ColorInt
 
 @ColorInt
 fun Context.themeColor(@AttrRes attrRes: Int): Int = TypedValue()
-    .apply { theme.resolveAttribute (attrRes, this, true) }
+    .apply { theme.resolveAttribute(attrRes, this, true) }
     .data

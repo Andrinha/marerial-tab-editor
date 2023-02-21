@@ -3,7 +3,13 @@ package com.example.marerialtabeditor.repository.data
 class Note(fret: Int) {
     var type: Type = Type.DEFAULT
     var fret: Int = fret
-        set(value) {field = if (value < -1) -1 else value}
+        set(value) {
+            field = when {
+                value < -1 -> -1
+                value > 24 -> 24
+                else -> value
+            }
+        }
 
     enum class Type {
         DEFAULT, HARMONIC, MUTED
