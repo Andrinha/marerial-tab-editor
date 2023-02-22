@@ -24,4 +24,6 @@
     <string name="copy">Copy</string>
     <string name="paste">Paste</string>
     <string name="add">Add</string>
+    <string name="edit_fragment">Edit fragment</string>
+    <string name="archive_fragment">Archive fragment</string>
 </resources>

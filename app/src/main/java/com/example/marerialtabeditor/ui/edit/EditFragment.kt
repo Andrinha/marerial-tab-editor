@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,6 +16,7 @@ import com.example.marerialtabeditor.R
 import com.example.marerialtabeditor.adapters.NoteAdapter
 import com.example.marerialtabeditor.databinding.FragmentEditBinding
 import com.example.marerialtabeditor.repository.data.Note
+import com.example.marerialtabeditor.repository.data.Song
 import com.example.marerialtabeditor.repository.data.tab.AppDatabase
 import com.example.marerialtabeditor.repository.data.tab.Tab
 import com.example.marerialtabeditor.utils.onItemClick
@@ -38,7 +40,9 @@ class EditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        if (arguments?.getSerializable("song") != null) {
+            viewModel.song.value = arguments?.getSerializable("song") as Song?
+        }
 
         binding.apply {
             recyclerSong.apply {
@@ -73,9 +77,11 @@ class EditFragment : Fragment() {
                 data.addEmptyChunk()
                 viewModel.song.value = data
             }
+
             buttonSave.setOnClickListener {
                 insertDataToDatabase()
             }
+
             buttonFretInc.setOnClickListener {
                 if (viewModel.focus.value != null) {
                     val focus = viewModel.focus.value!!
@@ -92,6 +98,7 @@ class EditFragment : Fragment() {
                         )
                 }
             }
+
             buttonFretDesc.setOnClickListener {
                 if (viewModel.focus.value != null) {
                     val focus = viewModel.focus.value!!
@@ -108,6 +115,7 @@ class EditFragment : Fragment() {
                         )
                 }
             }
+
             buttonFlagDefault.setOnClickListener {
                 if (viewModel.focus.value != null) {
                     val focus = viewModel.focus.value!!
@@ -116,6 +124,7 @@ class EditFragment : Fragment() {
                     viewModel.setNote(focus, note)
                 }
             }
+
             buttonFlagHarmonic.setOnClickListener {
                 if (viewModel.focus.value != null) {
                     val focus = viewModel.focus.value!!
@@ -124,6 +133,7 @@ class EditFragment : Fragment() {
                     viewModel.setNote(focus, note)
                 }
             }
+
             buttonFlagMuted.setOnClickListener {
                 if (viewModel.focus.value != null) {
                     val focus = viewModel.focus.value!!
@@ -132,10 +142,29 @@ class EditFragment : Fragment() {
                     viewModel.setNote(focus, note)
                 }
             }
+
+            editName.addTextChangedListener {
+                if (it.isNullOrEmpty()) {
+                    editNameLayout.error = "Empty name"
+                } else {
+                    viewModel.song.value!!.name = it.toString()
+                }
+            }
+            editBand.addTextChangedListener {
+                if (it.isNullOrEmpty()) {
+                    editBandLayout.error = "Empty band"
+                } else {
+                    viewModel.song.value!!.band = it.toString()
+                }
+            }
+
         }
+
         viewModel.apply {
             song.observe(viewLifecycleOwner) {
                 adapter.setData(it.notes)
+                binding.editName.setText(it.name)
+                binding.editBand.setText(it.band)
             }
             focus.observe(viewLifecycleOwner) {
                 adapter.setFocus(it)

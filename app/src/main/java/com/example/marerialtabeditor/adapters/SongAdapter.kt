@@ -7,10 +7,12 @@ import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.marerialtabeditor.R
 import com.example.marerialtabeditor.databinding.ItemSongBinding
 import com.example.marerialtabeditor.repository.data.Song
+import com.example.marerialtabeditor.ui.archive.ArchiveFragmentDirections
 import com.example.marerialtabeditor.utils.themeColor
 import java.util.*
 
@@ -46,6 +48,11 @@ class SongAdapter : RecyclerView.Adapter<SongAdapter.ViewHolder>() {
         fun bind(song: Song, query: String) = with(binding) {
             textName.text = song.name
             textBand.text = song.band
+            cardMain.setOnClickListener {
+                itemView.findNavController().navigate(
+                    ArchiveFragmentDirections.actionArchiveFragmentToEditFragment(song)
+                )
+            }
             cardMain.setOnLongClickListener {
                 cardMain.isChecked = !cardMain.isChecked
                 true

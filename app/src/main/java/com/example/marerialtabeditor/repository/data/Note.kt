@@ -1,6 +1,6 @@
 package com.example.marerialtabeditor.repository.data
 
-class Note(fret: Int) {
+class Note(fret: Int) : java.io.Serializable {
     var type: Type = Type.DEFAULT
     var fret: Int = fret
         set(value) {

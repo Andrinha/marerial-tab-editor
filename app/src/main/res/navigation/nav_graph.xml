@@ -3,26 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
-
+    app:startDestination="@id/archiveFragment">
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/archiveFragment"
         android:name="com.example.marerialtabeditor.ui.archive.ArchiveFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/archive_fragment"
         tools:layout="@layout/fragment_archive">
-
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_archiveFragment_to_editFragment"
+            app:destination="@id/editFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/editFragment"
         android:name="com.example.marerialtabeditor.ui.edit.EditFragment"
-        android:label="@string/second_fragment_label"
+        android:label="@string/edit_fragment"
         tools:layout="@layout/fragment_edit">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+        <argument
+            android:name="song"
+            android:defaultValue="@null"
+            app:argType="com.example.marerialtabeditor.repository.data.Song"
+            app:nullable="true" />
     </fragment>
 </navigation>

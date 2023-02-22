@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.marerialtabeditor.R
 import com.example.marerialtabeditor.adapters.SongAdapter
 import com.example.marerialtabeditor.databinding.FragmentArchiveBinding
 
@@ -33,7 +32,10 @@ class ArchiveFragment : Fragment() {
 
         binding.apply {
             fab.setOnClickListener {
-                findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+                // findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+                findNavController().navigate(
+                    ArchiveFragmentDirections.actionArchiveFragmentToEditFragment()
+                )
             }
             recyclerSongs.layoutManager = StaggeredGridLayoutManager(
                 2,
