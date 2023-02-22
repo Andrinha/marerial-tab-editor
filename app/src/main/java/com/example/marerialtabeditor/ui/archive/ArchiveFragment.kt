@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.marerialtabeditor.adapters.SongAdapter
 import com.example.marerialtabeditor.databinding.FragmentArchiveBinding
+import com.example.marerialtabeditor.repository.data.ActionEnum
 
 class ArchiveFragment : Fragment() {
 
@@ -34,7 +35,7 @@ class ArchiveFragment : Fragment() {
             fab.setOnClickListener {
                 // findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
                 findNavController().navigate(
-                    ArchiveFragmentDirections.actionArchiveFragmentToEditFragment()
+                    ArchiveFragmentDirections.actionArchiveFragmentToEditFragment(ActionEnum.ADD)
                 )
             }
             recyclerSongs.layoutManager = StaggeredGridLayoutManager(

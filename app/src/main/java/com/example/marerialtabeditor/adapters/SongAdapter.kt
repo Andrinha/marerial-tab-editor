@@ -11,13 +11,17 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.marerialtabeditor.R
 import com.example.marerialtabeditor.databinding.ItemSongBinding
+import com.example.marerialtabeditor.repository.data.ActionEnum
 import com.example.marerialtabeditor.repository.data.Song
+import com.example.marerialtabeditor.repository.data.tab.Tab
 import com.example.marerialtabeditor.ui.archive.ArchiveFragmentDirections
 import com.example.marerialtabeditor.utils.themeColor
 import java.util.*
+import kotlin.properties.Delegates
 
 class SongAdapter : RecyclerView.Adapter<SongAdapter.ViewHolder>() {
     private var list = emptyList<Song>()
+    private var id by Delegates.notNull<Int>()
     private var query = ""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -45,12 +49,12 @@ class SongAdapter : RecyclerView.Adapter<SongAdapter.ViewHolder>() {
 
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = ItemSongBinding.bind(item)
-        fun bind(song: Song, query: String) = with(binding) {
+        fun bind(song: Song, id: Int, query: String) = with(binding) {
             textName.text = song.name
             textBand.text = song.band
             cardMain.setOnClickListener {
                 itemView.findNavController().navigate(
-                    ArchiveFragmentDirections.actionArchiveFragmentToEditFragment(song)
+                    ArchiveFragmentDirections.actionArchiveFragmentToEditFragment(ActionEnum.EDIT, Tab(tabId = id, song = song))
                 )
             }
             cardMain.setOnLongClickListener {

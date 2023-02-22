@@ -1,15 +1,12 @@
 package com.example.marerialtabeditor.repository.data.tab
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface TabDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addTab(tab: Tab)
 
     @Query("SELECT * FROM tab_table")

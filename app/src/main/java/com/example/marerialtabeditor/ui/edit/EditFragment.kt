@@ -16,7 +16,6 @@ import com.example.marerialtabeditor.R
 import com.example.marerialtabeditor.adapters.NoteAdapter
 import com.example.marerialtabeditor.databinding.FragmentEditBinding
 import com.example.marerialtabeditor.repository.data.Note
-import com.example.marerialtabeditor.repository.data.Song
 import com.example.marerialtabeditor.repository.data.tab.AppDatabase
 import com.example.marerialtabeditor.repository.data.tab.Tab
 import com.example.marerialtabeditor.utils.onItemClick
@@ -40,8 +39,9 @@ class EditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (arguments?.getSerializable("song") != null) {
-            viewModel.song.value = arguments?.getSerializable("song") as Song?
+        if (arguments?.getSerializable("tab") != null) {
+            val tab = arguments?.getSerializable("tab") as Tab?
+            viewModel.song.value = tab?.song
         }
 
         binding.apply {
@@ -154,6 +154,7 @@ class EditFragment : Fragment() {
                     viewModel.song.value!!.name = it.toString()
                 }
             }
+
             editBand.addTextChangedListener {
                 if (it.isNullOrEmpty()) {
                     editBandLayout.error = "Empty band"
