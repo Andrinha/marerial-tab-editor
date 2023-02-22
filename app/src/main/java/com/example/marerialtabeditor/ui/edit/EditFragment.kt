@@ -78,6 +78,10 @@ class EditFragment : Fragment() {
                 viewModel.song.value = data
             }
 
+            buttonPlay.setOnClickListener {
+                viewModel.playSong()
+            }
+
             buttonSave.setOnClickListener {
                 insertDataToDatabase()
             }
@@ -91,7 +95,7 @@ class EditFragment : Fragment() {
                     if (note.fret != -1)
                         viewModel.playSound(
                             viewModel.loaded.value?.getOrNull(
-                                note.fret + getOffset(
+                                note.fret + viewModel.getOffset(
                                     focus
                                 )
                             ) ?: -1
@@ -108,7 +112,7 @@ class EditFragment : Fragment() {
                     if (note.fret != -1)
                         viewModel.playSound(
                             viewModel.loaded.value?.getOrNull(
-                                note.fret + getOffset(
+                                note.fret + viewModel.getOffset(
                                     focus
                                 )
                             ) ?: -1
@@ -177,17 +181,6 @@ class EditFragment : Fragment() {
             }
         }
     }
-
-    private fun getOffset(focus: Int): Int =
-        when (focus.mod(6)) {
-            0 -> 24
-            1 -> 19
-            2 -> 15
-            3 -> 10
-            4 -> 5
-            5 -> 0
-            else -> 0
-        }
 
     private fun insertDataToDatabase() {
         val tab = Tab(

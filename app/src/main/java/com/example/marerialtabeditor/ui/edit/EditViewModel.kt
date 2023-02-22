@@ -7,8 +7,11 @@ import android.media.AudioAttributes
 import android.media.SoundPool
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.marerialtabeditor.repository.data.Note
 import com.example.marerialtabeditor.repository.data.Song
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.IOException
 
 class EditViewModel(application: Application) : AndroidViewModel(application) {
@@ -115,4 +118,30 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
         }
         return streamID
     }
+
+    fun playSong() {
+        viewModelScope.launch {
+            val size = song.value!!.notes.size
+            repeat(size / 6) { y ->
+                repeat(6) { x ->
+                    val position = x + 6 * y
+                    val note = song.value!!.notes[position]
+                    if (note.fret != -1)
+                        playSound(loaded.value?.getOrNull(note.fret + getOffset(position)) ?: -1)
+                }
+                delay(100)
+            }
+        }
+    }
+
+    fun getOffset(focus: Int): Int =
+        when (focus.mod(6)) {
+            0 -> 24
+            1 -> 19
+            2 -> 15
+            3 -> 10
+            4 -> 5
+            5 -> 0
+            else -> 0
+        }
 }
