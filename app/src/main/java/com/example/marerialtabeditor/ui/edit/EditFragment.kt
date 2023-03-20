@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
@@ -83,7 +84,22 @@ class EditFragment : Fragment() {
             }
 
             buttonSave.setOnClickListener {
-                insertDataToDatabase()
+                var success = true
+                if (editBand.text.isNullOrEmpty()) {
+                    success = false
+                    editBandLayout.error = "Please enter band"
+                } else editBandLayout.error = null
+
+                if (editName.text.isNullOrEmpty()) {
+                    success = false
+                    editNameLayout.error = "Please enter name"
+                } else editNameLayout.error = null
+
+                if (success) {
+                    insertDataToDatabase()
+                    if (!findNavController().navigateUp())
+                        requireActivity().finish()
+                }
             }
 
             buttonFretInc.setOnClickListener {
@@ -148,21 +164,12 @@ class EditFragment : Fragment() {
             }
 
             editName.addTextChangedListener {
-                if (it.isNullOrEmpty()) {
-                    editNameLayout.error = "Empty name"
-                } else {
-                    viewModel.song.value!!.name = it.toString()
-                }
+                viewModel.song.value!!.name = it.toString()
             }
 
             editBand.addTextChangedListener {
-                if (it.isNullOrEmpty()) {
-                    editBandLayout.error = "Empty band"
-                } else {
-                    viewModel.song.value!!.band = it.toString()
-                }
+                viewModel.song.value!!.band = it.toString()
             }
-
         }
 
         viewModel.apply {

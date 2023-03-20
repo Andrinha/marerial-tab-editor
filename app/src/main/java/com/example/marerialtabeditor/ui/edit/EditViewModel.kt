@@ -43,19 +43,19 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun loadSounds() {
-        loaded.value!!.add(loadSound("2e.mp3"))
-        loaded.value!!.add(loadSound("2f.mp3"))
-        loaded.value!!.add(loadSound("2fd.mp3"))
-        loaded.value!!.add(loadSound("2g.mp3"))
-        loaded.value!!.add(loadSound("2gd.mp3"))
-        loaded.value!!.add(loadSound("2a.mp3"))
-        loaded.value!!.add(loadSound("2ad.mp3"))
-        loaded.value!!.add(loadSound("2b.mp3"))
-
-        loaded.value!!.add(loadSound("3c.mp3"))
-        loaded.value!!.add(loadSound("3cd.mp3"))
-        loaded.value!!.add(loadSound("3d.mp3"))
-        loaded.value!!.add(loadSound("3dd.mp3"))
+//        loaded.value!!.add(loadSound("2e.mp3"))
+//        loaded.value!!.add(loadSound("2f.mp3"))
+//        loaded.value!!.add(loadSound("2fd.mp3"))
+//        loaded.value!!.add(loadSound("2g.mp3"))
+//        loaded.value!!.add(loadSound("2gd.mp3"))
+//        loaded.value!!.add(loadSound("2a.mp3"))
+//        loaded.value!!.add(loadSound("2ad.mp3"))
+//        loaded.value!!.add(loadSound("2b.mp3"))
+//
+//        loaded.value!!.add(loadSound("3c.mp3"))
+//        loaded.value!!.add(loadSound("3cd.mp3"))
+//        loaded.value!!.add(loadSound("3d.mp3"))
+//        loaded.value!!.add(loadSound("3dd.mp3"))
         loaded.value!!.add(loadSound("3e.mp3"))
         loaded.value!!.add(loadSound("3f.mp3"))
         loaded.value!!.add(loadSound("3fd.mp3"))

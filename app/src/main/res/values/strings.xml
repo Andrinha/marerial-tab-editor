@@ -1,25 +1,15 @@
 <resources>
     <string name="app_name">Material Tab Editor</string>
-    <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">My Tabs</string>
-    <string name="second_fragment_label">Edit tab</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
     <string name="name">Name</string>
     <string name="muted">Muted</string>
     <string name="harmonic">Harmonic</string>
     <string name="default_text">Default</string>
     <string name="fret">Fret</string>
-    <string name="add_chunk">Add chunk</string>
     <string name="save">Save</string>
     <string name="band">Band</string>
     <string name="bpm">BPM</string>
-    <string name="guitar">Guitar</string>
-    <string name="bass">Bass</string>
-    <string name="nylon">Nylon</string>
-    <string name="acoustic">Acoustic</string>
     <string name="blocks">Blocks</string>
     <string name="copy">Copy</string>
     <string name="paste">Paste</string>

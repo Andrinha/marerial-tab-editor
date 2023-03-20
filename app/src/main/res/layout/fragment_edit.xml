@@ -7,26 +7,26 @@
     android:orientation="vertical"
     tools:context=".ui.edit.EditFragment">
 
-
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/half_margin"
-            android:layout_marginTop="@dimen/half_margin"
-            android:layout_marginEnd="@dimen/quarter_margin"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_name_layout"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/half_margin"
+                android:layout_marginTop="@dimen/half_margin"
+                android:layout_marginEnd="@dimen/quarter_margin"
+                android:layout_marginBottom="@dimen/quarter_margin">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_name"
@@ -37,7 +37,12 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_band_layout"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/half_margin"
+                android:layout_marginTop="@dimen/quarter_margin"
+                android:layout_marginEnd="@dimen/quarter_margin"
+                android:layout_marginBottom="@dimen/half_margin"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -48,237 +53,208 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-        </LinearLayout>
 
-        <Button
-            android:id="@+id/button_save"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/quarter_margin"
-            android:layout_marginTop="@dimen/half_margin"
-            android:layout_marginEnd="@dimen/half_margin"
-            android:layout_weight="1"
-            android:text="@string/save" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/half_margin"
-            android:layout_marginTop="@dimen/half_margin"
-            android:layout_marginEnd="@dimen/quarter_margin"
-            android:layout_weight="1"
-            android:clickable="false"
-            app:cardCornerRadius="@dimen/half_margin">
-
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView"
+                style="?attr/materialCardViewElevatedStyle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/half_margin"
-                    android:gravity="center|bottom"
-                    android:text="@string/bpm"
-                    android:textSize="20sp" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/half_margin"
+                android:layout_marginTop="@dimen/quarter_margin"
+                android:layout_marginEnd="@dimen/quarter_margin"
+                android:layout_marginBottom="@dimen/quarter_margin"
+                app:cardCornerRadius="@dimen/half_margin">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/button_bpm_desc"
-                        style="?attr/materialIconButtonOutlinedStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/half_margin"
-                        android:layout_marginEnd="@dimen/half_margin"
-                        android:layout_weight="1"
-                        android:insetLeft="0dp"
-                        android:insetRight="0dp"
-                        app:icon="@drawable/round_arrow_back_24"
-                        app:iconGravity="textStart" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/text_bpm"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:textSize="20sp"
-                        tools:text="120" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/button_bpm_inc"
-                        style="?attr/materialIconButtonOutlinedStyle"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/half_margin"
-                        android:layout_marginEnd="8dp"
-                        android:layout_weight="1"
-                        android:insetLeft="0dp"
-                        android:insetRight="0dp"
-                        app:icon="@drawable/round_arrow_forward_24"
-                        app:iconGravity="textStart" />
+                        android:layout_marginTop="@dimen/half_margin"
+                        android:gravity="center|bottom"
+                        android:text="@string/bpm"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button_bpm_desc"
+                            style="?attr/materialIconButtonFilledTonalStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/half_margin"
+                            android:layout_marginEnd="@dimen/half_margin"
+                            android:layout_weight="1"
+                            android:insetLeft="0dp"
+                            android:insetRight="0dp"
+                            app:icon="@drawable/round_arrow_back_24"
+                            app:iconGravity="textStart" />
+
+                        <TextView
+                            android:id="@+id/text_bpm"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textSize="20sp"
+                            tools:text="120" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button_bpm_inc"
+                            style="?attr/materialIconButtonFilledTonalStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/half_margin"
+                            android:layout_marginEnd="8dp"
+                            android:layout_weight="1"
+                            android:insetLeft="0dp"
+                            android:insetRight="0dp"
+                            app:icon="@drawable/round_arrow_forward_24"
+                            app:iconGravity="textStart" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/half_margin"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button_play"
+                            style="?attr/materialIconButtonFilledTonalStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/half_margin"
+                            android:layout_weight="1"
+                            android:insetLeft="0dp"
+                            android:insetRight="0dp"
+                            app:icon="@drawable/round_play_arrow_24"
+                            app:iconGravity="textStart" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button_pause"
+                            style="?attr/materialIconButtonFilledTonalStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/half_margin"
+                            android:layout_marginEnd="@dimen/half_margin"
+                            android:layout_weight="1"
+                            android:insetLeft="0dp"
+                            android:insetRight="0dp"
+                            app:icon="@drawable/round_pause_24"
+                            app:iconGravity="textStart" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button_stop"
+                            style="?attr/materialIconButtonFilledTonalStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/half_margin"
+                            android:layout_weight="1"
+                            android:insetLeft="0dp"
+                            android:insetRight="0dp"
+                            app:icon="@drawable/round_stop_24"
+                            app:iconGravity="textStart" />
+                    </LinearLayout>
+
                 </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView3"
+                style="?attr/materialCardViewElevatedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/half_margin"
+                android:layout_marginStart="@dimen/quarter_margin"
+                android:layout_marginEnd="@dimen/half_margin"
+                android:clickable="false"
+                app:cardCornerRadius="@dimen/half_margin">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/button_play"
-                        style="?attr/materialIconButtonOutlinedStyle"
-                        android:layout_width="0dp"
+                    <TextView
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/half_margin"
-                        android:layout_weight="1"
-                        android:insetLeft="0dp"
-                        android:insetRight="0dp"
-                        app:icon="@drawable/round_play_arrow_24"
-                        app:iconGravity="textStart" />
+                        android:layout_marginTop="@dimen/half_margin"
+                        android:gravity="center|bottom"
+                        android:text="@string/blocks"
+                        android:textSize="20sp" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/button_pause"
-                        style="?attr/materialIconButtonOutlinedStyle"
-                        android:layout_width="0dp"
+                    <Button
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/half_margin"
                         android:layout_marginEnd="@dimen/half_margin"
-                        android:layout_weight="1"
-                        android:insetLeft="0dp"
-                        android:insetRight="0dp"
-                        app:icon="@drawable/round_pause_24"
-                        app:iconGravity="textStart" />
+                        android:text="@string/copy" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/button_stop"
-                        style="?attr/materialIconButtonOutlinedStyle"
-                        android:layout_width="0dp"
+                    <Button
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/half_margin"
                         android:layout_marginEnd="@dimen/half_margin"
-                        android:layout_weight="1"
-                        android:insetLeft="0dp"
-                        android:insetRight="0dp"
-                        app:icon="@drawable/round_stop_24"
-                        app:iconGravity="textStart" />
+                        android:text="@string/paste" />
+
+                    <Button
+                        android:id="@+id/button_add_block"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/half_margin"
+                        android:layout_marginEnd="@dimen/half_margin"
+                        android:layout_marginBottom="@dimen/half_margin"
+                        android:text="@string/add" />
+
+
                 </LinearLayout>
-
-                <com.google.android.material.button.MaterialButtonToggleGroup
-                    android:id="@+id/toggleInstrument"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/half_margin"
-                    android:layout_marginEnd="@dimen/half_margin"
-                    android:layout_marginBottom="@dimen/half_margin"
-                    app:selectionRequired="true"
-                    app:singleSelection="true">
-
-                    <Button
-                        android:id="@+id/button_instrument_guitar"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/acoustic" />
-
-                    <Button
-                        android:id="@+id/button_instrument_nylon"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/nylon" />
-
-                    <Button
-                        android:id="@+id/button_instrument_bass"
-                        style="?attr/materialButtonOutlinedStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/bass" />
-
-                </com.google.android.material.button.MaterialButtonToggleGroup>
+            </com.google.android.material.card.MaterialCardView>
 
 
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/quarter_margin"
-            android:layout_marginTop="@dimen/half_margin"
-            android:layout_marginEnd="@dimen/half_margin"
-            android:layout_weight="1"
-            android:clickable="false"
-            app:cardCornerRadius="@dimen/half_margin">
-
-            <LinearLayout
+            <Button
+                android:id="@+id/button_save"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:layout_marginStart="@dimen/quarter_margin"
+                android:layout_marginTop="@dimen/half_margin"
+                android:layout_marginEnd="@dimen/half_margin"
+                android:layout_marginBottom="@dimen/quarter_margin"
+                android:text="@string/save"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/half_margin"
-                    android:gravity="center|bottom"
-                    android:text="@string/blocks"
-                    android:textSize="20sp" />
-
-                <Button
-                    style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/half_margin"
-                    android:layout_marginEnd="@dimen/half_margin"
-                    android:text="@string/copy" />
-
-                <Button
-                    style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/half_margin"
-                    android:layout_marginEnd="@dimen/half_margin"
-                    android:text="@string/paste" />
-
-                <Button
-                    android:id="@+id/button_add_block"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/half_margin"
-                    android:layout_marginEnd="@dimen/half_margin"
-                    android:layout_marginBottom="@dimen/half_margin"
-                    android:text="@string/add" />
-
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
 
     </LinearLayout>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView2"
+        style="?attr/materialCardViewElevatedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/half_margin"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         app:cardCornerRadius="@dimen/half_margin">
 
         <LinearLayout
@@ -301,7 +277,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_fret_desc"
-                    style="?attr/materialIconButtonOutlinedStyle"
+                    style="?attr/materialIconButtonFilledTonalStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -323,7 +299,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_fret_inc"
-                    style="?attr/materialIconButtonOutlinedStyle"
+                    style="?attr/materialIconButtonFilledTonalStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -337,6 +313,7 @@
 
             <com.google.android.material.button.MaterialButtonToggleGroup
                 android:id="@+id/toggleButton"
+                style="?attr/materialButtonToggleGroupStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/half_margin"
@@ -347,15 +324,16 @@
 
                 <Button
                     android:id="@+id/button_flag_default"
-                    style="?attr/materialButtonOutlinedStyle"
+                    style="?attr/materialIconButtonFilledTonalStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:insetLeft="0dp"
                     android:text="@string/default_text" />
 
                 <Button
                     android:id="@+id/button_flag_harmonic"
-                    style="?attr/materialButtonOutlinedStyle"
+                    style="?attr/materialIconButtonFilledTonalStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -363,10 +341,11 @@
 
                 <Button
                     android:id="@+id/button_flag_muted"
-                    style="?attr/materialButtonOutlinedStyle"
+                    style="?attr/materialIconButtonFilledTonalStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:insetRight="0dp"
                     android:text="@string/muted" />
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -377,7 +356,10 @@
         android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:id="@+id/linearLayout2"
