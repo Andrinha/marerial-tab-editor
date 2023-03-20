@@ -40,8 +40,8 @@ class EditFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (arguments?.getSerializable("tab") != null) {
-            val tab = arguments?.getSerializable("tab") as Tab?
-            viewModel.song.value = tab?.song
+            val tab = arguments?.getSerializable("tab") as Tab
+            viewModel.song.value = tab.song
         }
 
         binding.apply {

@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.marerialtabeditor.adapters.SongAdapter
 import com.example.marerialtabeditor.databinding.FragmentArchiveBinding
-import com.example.marerialtabeditor.repository.data.ActionEnum
+import com.example.marerialtabeditor.utils.onItemClick
 
 class ArchiveFragment : Fragment() {
 
@@ -35,7 +35,7 @@ class ArchiveFragment : Fragment() {
             fab.setOnClickListener {
                 // findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
                 findNavController().navigate(
-                    ArchiveFragmentDirections.actionArchiveFragmentToEditFragment(ActionEnum.ADD)
+                    ArchiveFragmentDirections.actionArchiveFragmentToEditFragment()
                 )
             }
             recyclerSongs.layoutManager = StaggeredGridLayoutManager(
@@ -43,6 +43,13 @@ class ArchiveFragment : Fragment() {
                 StaggeredGridLayoutManager.VERTICAL
             )
             recyclerSongs.adapter = adapter
+            recyclerSongs.onItemClick {
+                findNavController().navigate(
+                    ArchiveFragmentDirections.actionArchiveFragmentToEditFragment(
+                        viewModel.tabs.value!![it]
+                    )
+                )
+            }
 
             editSearch.addTextChangedListener {
                 viewModel.searchQuery.value = it.toString()

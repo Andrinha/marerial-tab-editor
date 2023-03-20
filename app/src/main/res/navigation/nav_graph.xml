@@ -23,9 +23,6 @@
         android:label="@string/edit_fragment"
         tools:layout="@layout/fragment_edit">
         <argument
-            android:name="action"
-            app:argType="com.example.marerialtabeditor.repository.data.ActionEnum" />
-        <argument
             android:name="tab"
             app:argType="com.example.marerialtabeditor.repository.data.tab.Tab"
             app:nullable="true"

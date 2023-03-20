@@ -7,14 +7,10 @@ import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.marerialtabeditor.R
 import com.example.marerialtabeditor.databinding.ItemSongBinding
-import com.example.marerialtabeditor.repository.data.ActionEnum
 import com.example.marerialtabeditor.repository.data.Song
-import com.example.marerialtabeditor.repository.data.tab.Tab
-import com.example.marerialtabeditor.ui.archive.ArchiveFragmentDirections
 import com.example.marerialtabeditor.utils.themeColor
 import java.util.*
 import kotlin.properties.Delegates
@@ -49,18 +45,18 @@ class SongAdapter : RecyclerView.Adapter<SongAdapter.ViewHolder>() {
 
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = ItemSongBinding.bind(item)
-        fun bind(song: Song, id: Int, query: String) = with(binding) {
+        fun bind(song: Song, query: String) = with(binding) {
             textName.text = song.name
             textBand.text = song.band
-            cardMain.setOnClickListener {
-                itemView.findNavController().navigate(
-                    ArchiveFragmentDirections.actionArchiveFragmentToEditFragment(ActionEnum.EDIT, Tab(tabId = id, song = song))
-                )
-            }
-            cardMain.setOnLongClickListener {
-                cardMain.isChecked = !cardMain.isChecked
-                true
-            }
+//            cardMain.setOnClickListener {
+//                itemView.findNavController().navigate(
+//                    ArchiveFragmentDirections.actionArchiveFragmentToEditFragment(ActionEnum.EDIT, Tab(tabId = id, song = song))
+//                )
+//            }
+//            cardMain.setOnLongClickListener {
+//                cardMain.isChecked = !cardMain.isChecked
+//                true
+//            }
 
             if (query.isNotEmpty()) {
                 val indexName = song.name.indexOf(query, ignoreCase = true)
