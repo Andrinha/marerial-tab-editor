@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -20,7 +21,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_name_layout"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/half_margin"
@@ -37,13 +38,12 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/edit_band_layout"
-                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/half_margin"
-                android:layout_marginTop="@dimen/quarter_margin"
                 android:layout_marginEnd="@dimen/quarter_margin"
-                android:layout_marginBottom="@dimen/half_margin"
-                android:layout_height="wrap_content">
+                android:layout_marginBottom="@dimen/half_margin">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_band"
@@ -176,14 +176,27 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
+            <Button
+                android:id="@+id/button_save"
+                style="@style/Widget.Material3.Button.ElevatedButton"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/quarter_margin"
+                android:layout_marginTop="@dimen/half_margin"
+                android:layout_marginEnd="@dimen/half_margin"
+                android:layout_marginBottom="@dimen/quarter_margin"
+                android:layout_weight="1"
+                android:text="@string/save" />
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/materialCardView3"
                 style="?attr/materialCardViewElevatedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/half_margin"
                 android:layout_marginStart="@dimen/quarter_margin"
+                android:layout_marginTop="@dimen/quarter_margin"
                 android:layout_marginEnd="@dimen/half_margin"
+                android:layout_marginBottom="@dimen/quarter_margin"
                 android:clickable="false"
                 app:cardCornerRadius="@dimen/half_margin">
 
@@ -230,19 +243,6 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-
-            <Button
-                android:id="@+id/button_save"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                style="@style/Widget.Material3.Button.ElevatedButton"
-                android:layout_marginStart="@dimen/quarter_margin"
-                android:layout_marginTop="@dimen/half_margin"
-                android:layout_marginEnd="@dimen/half_margin"
-                android:layout_marginBottom="@dimen/quarter_margin"
-                android:text="@string/save"/>
-
         </LinearLayout>
 
     </LinearLayout>
@@ -252,9 +252,10 @@
         style="?attr/materialCardViewElevatedStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/half_margin"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="@dimen/half_margin"
+        android:layout_marginTop="@dimen/quarter_margin"
+        android:layout_marginEnd="@dimen/half_margin"
+        android:layout_marginBottom="@dimen/half_margin"
         app:cardCornerRadius="@dimen/half_margin">
 
         <LinearLayout
@@ -406,9 +407,12 @@
             android:id="@+id/recycler_song"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginBottom="@dimen/default_margin"
             android:clipToPadding="false"
             android:orientation="horizontal"
+            android:paddingStart="@dimen/default_margin"
+            android:paddingEnd="@dimen/default_margin"
             android:scrollbars="horizontal"
             tools:itemCount="6"
             tools:listitem="@layout/item_note" />

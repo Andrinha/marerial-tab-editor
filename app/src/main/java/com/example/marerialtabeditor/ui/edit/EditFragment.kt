@@ -39,10 +39,8 @@ class EditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         if (arguments?.getSerializable("tab") != null) {
-            val tab = arguments?.getSerializable("tab") as Tab
-            viewModel.song.value = tab.song
+            viewModel.tab.value = arguments?.getSerializable("tab") as Tab
         }
 
         binding.apply {
@@ -74,9 +72,9 @@ class EditFragment : Fragment() {
             }
 
             buttonAddBlock.setOnClickListener {
-                val data = viewModel.song.value!!
-                data.addEmptyChunk()
-                viewModel.song.value = data
+                val tab = viewModel.tab.value!!
+                tab.song.addEmptyChunk()
+                viewModel.tab.value = tab
             }
 
             buttonPlay.setOnClickListener {
@@ -164,19 +162,19 @@ class EditFragment : Fragment() {
             }
 
             editName.addTextChangedListener {
-                viewModel.song.value!!.name = it.toString()
+                viewModel.tab.value!!.song.name = it.toString()
             }
 
             editBand.addTextChangedListener {
-                viewModel.song.value!!.band = it.toString()
+                viewModel.tab.value!!.song.band = it.toString()
             }
         }
 
         viewModel.apply {
-            song.observe(viewLifecycleOwner) {
-                adapter.setData(it.notes)
-                binding.editName.setText(it.name)
-                binding.editBand.setText(it.band)
+            tab.observe(viewLifecycleOwner) {
+                adapter.setData(it.song.notes)
+                binding.editName.setText(it.song.name)
+                binding.editBand.setText(it.song.band)
             }
             focus.observe(viewLifecycleOwner) {
                 adapter.setFocus(it)
@@ -191,10 +189,7 @@ class EditFragment : Fragment() {
     }
 
     private fun insertDataToDatabase() {
-        val tab = Tab(
-            0,
-            viewModel.song.value!!
-        )
+        val tab = viewModel.tab.value!!
         addTab(tab)
     }
 

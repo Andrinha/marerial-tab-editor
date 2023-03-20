@@ -9,11 +9,16 @@
     <string name="fret">Fret</string>
     <string name="save">Save</string>
     <string name="band">Band</string>
-    <string name="bpm">BPM</string>
+    <string name="bpm" translatable="false">BPM</string>
     <string name="blocks">Blocks</string>
     <string name="copy">Copy</string>
     <string name="paste">Paste</string>
     <string name="add">Add</string>
-    <string name="edit_fragment">Edit fragment</string>
-    <string name="archive_fragment">Archive fragment</string>
+    <string name="edit_fragment">Edit tab</string>
+    <string name="archive_fragment">My tabs</string>
+    <string name="tab_create">Create tab</string>
+    <string name="search">Search...</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 </resources>

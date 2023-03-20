@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Material Tab Editor</string>
+    <string name="name">Название</string>
+    <string name="muted">Заглушенная</string>
+    <string name="harmonic">Флажолет</string>
+    <string name="default_text">Стандартная</string>
+    <string name="fret">Лад</string>
+    <string name="save">Сохранить</string>
+    <string name="band">Группа</string>
+    <string name="blocks">Блоки</string>
+    <string name="copy">Копировать</string>
+    <string name="paste">Вставить</string>
+    <string name="add">Добавить</string>
+    <string name="edit_fragment">Редактирование</string>
+    <string name="archive_fragment">Мои табулатуры</string>
+    <string name="tab_create">Создание</string>
+    <string name="search">Поиск...</string>
+    <string name="cancel">Отмена</string>
+    <string name="delete">Удалить</string>
+    <string name="edit">Редактировать</string>
+</resources>

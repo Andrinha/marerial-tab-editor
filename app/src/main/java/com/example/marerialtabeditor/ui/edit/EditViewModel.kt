@@ -10,17 +10,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.marerialtabeditor.repository.data.Note
 import com.example.marerialtabeditor.repository.data.Song
+import com.example.marerialtabeditor.repository.data.tab.Tab
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.IOException
 
 class EditViewModel(application: Application) : AndroidViewModel(application) {
-    val song = MutableLiveData(Song(mutableListOf(), "", "").apply {
+    val tab = MutableLiveData(Tab(0, Song(mutableListOf(), "", "").apply {
         addEmptyChunk()
         addEmptyChunk()
         addEmptyChunk()
         addEmptyChunk()
-    })
+    }))
     val focus = MutableLiveData<Int>()
     val loaded = MutableLiveData(mutableListOf<Int>())
     private var streamID = 0
@@ -99,7 +100,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun setNote(position: Int, note: Note) {
-        this.song.value!!.notes[position] = note
+        this.tab.value!!.song.notes[position] = note
         focus.value = focus.value!!
     }
 
@@ -121,11 +122,11 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
 
     fun playSong() {
         viewModelScope.launch {
-            val size = song.value!!.notes.size
+            val size = tab.value!!.song.notes.size
             repeat(size / 6) { y ->
                 repeat(6) { x ->
                     val position = x + 6 * y
-                    val note = song.value!!.notes[position]
+                    val note = tab.value!!.song.notes[position]
                     if (note.fret != -1)
                         playSound(loaded.value?.getOrNull(note.fret + getOffset(position)) ?: -1)
                 }
