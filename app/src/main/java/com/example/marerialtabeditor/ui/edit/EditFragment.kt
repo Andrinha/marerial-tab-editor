@@ -44,6 +44,7 @@ class EditFragment : Fragment() {
         }
 
         binding.apply {
+
             recyclerSong.apply {
                 layoutManager = GridLayoutManager(
                     requireContext(),
@@ -117,7 +118,7 @@ class EditFragment : Fragment() {
                 }
             }
 
-            buttonFretDesc.setOnClickListener {
+            buttonFretDec.setOnClickListener {
                 if (viewModel.focus.value != null) {
                     val focus = viewModel.focus.value!!
                     val note = adapter.getNote(focus)
@@ -168,6 +169,18 @@ class EditFragment : Fragment() {
             editBand.addTextChangedListener {
                 viewModel.tab.value!!.song.band = it.toString()
             }
+            buttonBpmInc.setOnClickListener {
+                if (viewModel.tab.value!!.song.bpm < 240) {
+                    viewModel.tab.value!!.song.bpm = viewModel.tab.value!!.song.bpm.inc()
+                    binding.textBpm.text = viewModel.tab.value!!.song.bpm.toString()
+                }
+            }
+            buttonBpmDec.setOnClickListener {
+                if (viewModel.tab.value!!.song.bpm > 40) {
+                    viewModel.tab.value!!.song.bpm = viewModel.tab.value!!.song.bpm.dec()
+                    binding.textBpm.text = viewModel.tab.value!!.song.bpm.toString()
+                }
+            }
         }
 
         viewModel.apply {
@@ -175,6 +188,7 @@ class EditFragment : Fragment() {
                 adapter.setData(it.song.notes)
                 binding.editName.setText(it.song.name)
                 binding.editBand.setText(it.song.band)
+                binding.textBpm.text = it.song.bpm.toString()
             }
             focus.observe(viewLifecycleOwner) {
                 adapter.setFocus(it)

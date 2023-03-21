@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 class EditViewModel(application: Application) : AndroidViewModel(application) {
-    val tab = MutableLiveData(Tab(0, Song(mutableListOf(), "", "").apply {
+    val tab = MutableLiveData(Tab(0, Song(mutableListOf(), "", "", 120).apply {
         addEmptyChunk()
         addEmptyChunk()
         addEmptyChunk()
@@ -24,6 +24,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
     }))
     val focus = MutableLiveData<Int>()
     val loaded = MutableLiveData(mutableListOf<Int>())
+
     private var streamID = 0
     private val assetManager: AssetManager by lazy {
         application.assets
@@ -109,7 +110,8 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
         loaded.value!!.add(loadSound("7cd.mp3"))
         loaded.value!!.add(loadSound("7d.mp3"))
         loaded.value!!.add(loadSound("7dd.mp3"))
-        loaded.value!!.add(loadSound("7e.mp3"))    }
+        loaded.value!!.add(loadSound("7e.mp3"))
+    }
 
     fun setNote(position: Int, note: Note) {
         this.tab.value!!.song.notes[position] = note
@@ -134,6 +136,8 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
 
     fun playSong() {
         viewModelScope.launch {
+            val bpm = tab.value!!.song.bpm
+            val delay = 1000L * 16L / bpm
             val size = tab.value!!.song.notes.size
             repeat(size / 6) { y ->
                 repeat(6) { x ->
@@ -142,7 +146,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
                     if (note.fret != -1)
                         playSound(loaded.value?.getOrNull(note.fret + getOffset(position)) ?: -1)
                 }
-                delay(100)
+                delay(delay)
             }
         }
     }

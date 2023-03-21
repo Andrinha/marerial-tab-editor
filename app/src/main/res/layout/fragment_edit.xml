@@ -33,7 +33,9 @@
                     android:id="@+id/edit_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/name" />
+                    android:hint="@string/name"
+                    android:inputType="text|textNoSuggestions"
+                    android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -49,7 +51,9 @@
                     android:id="@+id/edit_band"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/band" />
+                    android:hint="@string/band"
+                    android:inputType="text|textNoSuggestions"
+                    android:maxLines="1" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,7 +88,7 @@
                         android:orientation="horizontal">
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/button_bpm_desc"
+                            android:id="@+id/button_bpm_dec"
                             style="?attr/materialIconButtonFilledTonalStyle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -277,7 +281,7 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_fret_desc"
+                    android:id="@+id/button_fret_dec"
                     style="?attr/materialIconButtonFilledTonalStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
