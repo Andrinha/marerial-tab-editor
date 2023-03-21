@@ -24,8 +24,8 @@
         tools:layout="@layout/fragment_edit">
         <argument
             android:name="tab"
+            android:defaultValue="@null"
             app:argType="com.example.marerialtabeditor.repository.data.tab.Tab"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </fragment>
 </navigation>

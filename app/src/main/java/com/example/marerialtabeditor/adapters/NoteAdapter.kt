@@ -17,6 +17,7 @@ import java.util.*
 class NoteAdapter : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
     private var data = mutableListOf<Note>()
     private var focus: Int = -1
+    private var column: Int = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_note, parent, false)
@@ -24,7 +25,7 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data[position], focus, position)
+        holder.bind(data[position], focus, position, column)
     }
 
     override fun getItemCount(): Int {
@@ -53,11 +54,19 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
         notifyItemChanged(focus)
     }
 
+    fun setColumn(column: Int) {
+        this.column = column
+        if (column == -1)
+            notifyItemRangeChanged(data.size - 6, 6)
+        else
+            notifyItemRangeChanged(column * 6 - 6, 12)
+    }
+
 
     class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = ItemNoteBinding.bind(item)
 
-        fun bind(note: Note, focus: Int, position: Int) = with(binding) {
+        fun bind(note: Note, focus: Int, position: Int, column: Int) = with(binding) {
             if (position.mod(48) in 0..5)
                 viewDivider.visibility = View.VISIBLE else
                 viewDivider.visibility = View.GONE
@@ -71,12 +80,15 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                     )
                 }
-                background = if (position == focus) {
+                background = if (position == focus && position !in column * 6 until column * 6 + 6) {
                     itemView.context.theme.getDrawable(R.drawable.background_focus)
                 } else {
                     null
                 }
             }
+            layoutFret.background = if (position in column * 6 until column * 6 + 6) {
+                itemView.context.theme.getDrawable(R.drawable.background_playing)
+            } else null
         }
     }
 }

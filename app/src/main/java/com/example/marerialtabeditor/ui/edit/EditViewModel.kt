@@ -7,12 +7,9 @@ import android.media.AudioAttributes
 import android.media.SoundPool
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.example.marerialtabeditor.repository.data.Note
 import com.example.marerialtabeditor.repository.data.Song
 import com.example.marerialtabeditor.repository.data.tab.Tab
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.io.IOException
 
 class EditViewModel(application: Application) : AndroidViewModel(application) {
@@ -23,7 +20,9 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
         addEmptyChunk()
     }))
     val focus = MutableLiveData<Int>()
+    val playingColumn = MutableLiveData<Int>(-1)
     val loaded = MutableLiveData(mutableListOf<Int>())
+    val isPlaying = MutableLiveData(false)
 
     private var streamID = 0
     private val assetManager: AssetManager by lazy {
@@ -132,23 +131,6 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
             streamID = soundPool.play(sound, 1F, 1F, 1, 0, 1F)
         }
         return streamID
-    }
-
-    fun playSong() {
-        viewModelScope.launch {
-            val bpm = tab.value!!.song.bpm
-            val delay = 1000L * 16L / bpm
-            val size = tab.value!!.song.notes.size
-            repeat(size / 6) { y ->
-                repeat(6) { x ->
-                    val position = x + 6 * y
-                    val note = tab.value!!.song.notes[position]
-                    if (note.fret != -1)
-                        playSound(loaded.value?.getOrNull(note.fret + getOffset(position)) ?: -1)
-                }
-                delay(delay)
-            }
-        }
     }
 
     fun getOffset(focus: Int): Int =

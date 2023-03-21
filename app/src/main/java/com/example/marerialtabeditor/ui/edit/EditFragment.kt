@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,8 @@ import com.example.marerialtabeditor.repository.data.Note
 import com.example.marerialtabeditor.repository.data.tab.AppDatabase
 import com.example.marerialtabeditor.repository.data.tab.Tab
 import com.example.marerialtabeditor.utils.onItemClick
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class EditFragment : Fragment() {
@@ -46,6 +49,7 @@ class EditFragment : Fragment() {
         binding.apply {
 
             recyclerSong.apply {
+                itemAnimator?.changeDuration = 0
                 layoutManager = GridLayoutManager(
                     requireContext(),
                     6,
@@ -79,7 +83,17 @@ class EditFragment : Fragment() {
             }
 
             buttonPlay.setOnClickListener {
-                viewModel.playSong()
+                playSong()
+                adapter.notifyDataSetChanged()
+            }
+
+            buttonStop.setOnClickListener {
+                stop()
+                adapter.notifyDataSetChanged()
+            }
+
+            buttonPause.setOnClickListener {
+                pause()
             }
 
             buttonSave.setOnClickListener {
@@ -199,6 +213,122 @@ class EditFragment : Fragment() {
                 }
                 binding.textFret.text = adapter.getNote(it).toString()
             }
+            playingColumn.observe(viewLifecycleOwner) {
+                adapter.setColumn(it)
+            }
+        }
+    }
+
+    private fun pause() {
+        if (viewModel.isPlaying.value == true) {
+            viewModel.isPlaying.value = false
+        } else {
+            lifecycleScope.launch {
+                viewModel.isPlaying.value = true
+                val bpm = viewModel.tab.value!!.song.bpm
+                val delay = 1000L * 16L / bpm
+                val size = viewModel.tab.value!!.song.notes.size
+                val startColumn = if (viewModel.playingColumn.value!! == -1)
+                    0 else viewModel.playingColumn.value!!
+                for (y in startColumn until size / 6) {
+                    if (viewModel.isPlaying.value != true) {
+                        return@launch
+                    }
+                    binding.recyclerSong.smoothScrollToPosition(6 * (y + 5))
+                    viewModel.playingColumn.value = y
+                    repeat(6) { x ->
+                        val position = x + 6 * y
+                        val note = viewModel.tab.value!!.song.notes[position]
+                        if (note.fret != -1)
+                            viewModel.playSound(
+                                viewModel.loaded.value?.getOrNull(
+                                    note.fret + viewModel.getOffset(
+                                        position
+                                    )
+                                ) ?: -1
+                            )
+                    }
+                    delay(delay)
+                }
+                viewModel.playingColumn.value = -1
+                viewModel.isPlaying.value = false
+            }
+        }
+    }
+
+    private fun stop() {
+        if (viewModel.isPlaying.value == true) {
+            viewModel.isPlaying.value = false
+            adapter.notifyItemRangeChanged(viewModel.playingColumn.value!! * 6, 6)
+            viewModel.playingColumn.value = -1
+            return
+        }
+
+        lifecycleScope.launch {
+            viewModel.isPlaying.value = true
+            val bpm = viewModel.tab.value!!.song.bpm
+            val delay = 1000L * 16L / bpm
+            val size = viewModel.tab.value!!.song.notes.size
+            repeat(size / 6) { y ->
+                if (viewModel.isPlaying.value != true) {
+                    return@launch
+                }
+                binding.recyclerSong.smoothScrollToPosition(6 * (y + 5))
+                viewModel.playingColumn.value = y
+                repeat(6) { x ->
+                    val position = x + 6 * y
+                    val note = viewModel.tab.value!!.song.notes[position]
+                    if (note.fret != -1)
+                        viewModel.playSound(
+                            viewModel.loaded.value?.getOrNull(
+                                note.fret + viewModel.getOffset(
+                                    position
+                                )
+                            ) ?: -1
+                        )
+                }
+                delay(delay)
+            }
+            viewModel.playingColumn.value = -1
+            viewModel.isPlaying.value = false
+        }
+    }
+
+    private fun playSong() {
+        if (viewModel.isPlaying.value == true) {
+            viewModel.isPlaying.value = false
+            adapter.notifyItemRangeChanged(viewModel.playingColumn.value!! * 6, 6)
+            viewModel.playingColumn.value = -1
+            return
+        }
+
+        lifecycleScope.launch {
+            viewModel.isPlaying.value = true
+            val bpm = viewModel.tab.value!!.song.bpm
+            val delay = 1000L * 16L / bpm
+            val size = viewModel.tab.value!!.song.notes.size
+            repeat(size / 6) { y ->
+                if (viewModel.isPlaying.value != true) {
+                    return@launch
+                }
+                binding.recyclerSong.smoothScrollToPosition(6 * (y + 5))
+                viewModel.playingColumn.value = y
+                repeat(6) { x ->
+                    val position = x + 6 * y
+                    val note = viewModel.tab.value!!.song.notes[position]
+                    if (note.fret != -1)
+                        viewModel.playSound(
+                            viewModel.loaded.value?.getOrNull(
+                                note.fret + viewModel.getOffset(
+                                    position
+                                )
+                            ) ?: -1
+                        )
+                }
+                delay(delay)
+            }
+            viewModel.playingColumn.value = -1
+            viewModel.isPlaying.value = false
         }
     }
 

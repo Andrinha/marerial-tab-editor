@@ -10,11 +10,8 @@ import com.example.marerialtabeditor.databinding.FragmentBottomsheetEditBinding
 import com.example.marerialtabeditor.repository.data.tab.AppDatabase
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
-import kotlin.coroutines.CoroutineContext
 
 
 class BottomSheetEditFragment : BottomSheetDialogFragment() {
@@ -42,7 +39,9 @@ class BottomSheetEditFragment : BottomSheetDialogFragment() {
     }
 
     private fun showDeleteDialog(id: Int, context: Context) {
-        MaterialAlertDialogBuilder(context, R.style.Theme_MarerialTabEditor_Dialog_Alert).setTitle(getString(R.string.are_you_sure))
+        MaterialAlertDialogBuilder(context, R.style.Theme_MarerialTabEditor_Dialog_Alert).setTitle(
+            getString(R.string.are_you_sure)
+        )
             .setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ ->
                 dialog.dismiss()
             }.setPositiveButton(resources.getString(R.string.delete)) { _, _ ->
