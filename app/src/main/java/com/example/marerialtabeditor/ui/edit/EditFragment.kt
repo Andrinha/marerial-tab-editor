@@ -59,6 +59,7 @@ class EditFragment : Fragment() {
                 adapter = this@EditFragment.adapter
                 recyclerSong.onItemClick {
                     viewModel.focus.value = it
+                    viewModel.selectedColumn.value = it / 6
                 }
                 setPadding(0, 0, 0, 0)
                 clipToPadding = false
@@ -83,13 +84,13 @@ class EditFragment : Fragment() {
             }
 
             buttonPlay.setOnClickListener {
+                adapter.notifyItemRangeChanged(viewModel.playingColumn.value!!, 6)
                 playSong()
-                adapter.notifyDataSetChanged()
             }
 
             buttonStop.setOnClickListener {
+                adapter.notifyItemRangeChanged(viewModel.playingColumn.value!!, 6)
                 stop()
-                adapter.notifyDataSetChanged()
             }
 
             buttonPause.setOnClickListener {
@@ -215,6 +216,9 @@ class EditFragment : Fragment() {
             }
             playingColumn.observe(viewLifecycleOwner) {
                 adapter.setColumn(it)
+            }
+            selectedColumn.observe(viewLifecycleOwner) {
+                adapter.setSelectedColumn(it)
             }
         }
     }

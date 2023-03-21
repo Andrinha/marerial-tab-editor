@@ -418,7 +418,7 @@
             android:paddingStart="@dimen/default_margin"
             android:paddingEnd="@dimen/default_margin"
             android:scrollbars="horizontal"
-            tools:itemCount="6"
+            tools:itemCount="1"
             tools:listitem="@layout/item_note" />
 
     </FrameLayout>

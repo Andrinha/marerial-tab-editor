@@ -18,6 +18,7 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
     private var data = mutableListOf<Note>()
     private var focus: Int = -1
     private var column: Int = -1
+    private var selectedColumn: Int = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_note, parent, false)
@@ -56,6 +57,14 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
 
     fun setColumn(column: Int) {
         this.column = column
+        if (column == -1)
+            notifyItemRangeChanged(data.size - 6, 6)
+        else
+            notifyItemRangeChanged(column * 6 - 6, 12)
+    }
+
+    fun setSelectedColumn(column: Int) {
+        this.selectedColumn = column
         if (column == -1)
             notifyItemRangeChanged(data.size - 6, 6)
         else

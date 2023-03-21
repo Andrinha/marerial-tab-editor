@@ -20,7 +20,8 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
         addEmptyChunk()
     }))
     val focus = MutableLiveData<Int>()
-    val playingColumn = MutableLiveData<Int>(-1)
+    val playingColumn = MutableLiveData(-1)
+    val selectedColumn = MutableLiveData(-1)
     val loaded = MutableLiveData(mutableListOf<Int>())
     val isPlaying = MutableLiveData(false)
 
