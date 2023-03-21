@@ -12,6 +12,7 @@ interface TabDao {
     @Query("SELECT * FROM tab_table")
     fun readAllData(): LiveData<List<Tab>>
 
-//    @Query("DELETE FROM tab_table WHERE id = :tabId")
-//    fun deleteItem(name: String)
+    @Query("DELETE FROM tab_table WHERE tabId = :id")
+    fun deleteItem(id: Int)
+
 }

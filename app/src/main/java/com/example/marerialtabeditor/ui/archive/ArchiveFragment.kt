@@ -53,10 +53,10 @@ class ArchiveFragment : Fragment() {
                 },
                 {
                     val bottomSheetFragment = BottomSheetEditFragment()
-//                    val bundle = Bundle().apply {
-//                        putInt("id", viewModel.)
-//                    }
-//                    bottomSheetFragment.arguments = bundle
+                    val bundle = Bundle().apply {
+                        putInt("id", viewModel.tabs.value!![it].tabId)
+                    }
+                    bottomSheetFragment.arguments = bundle
                     bottomSheetFragment.show(parentFragmentManager, "tag")
                 }
             )

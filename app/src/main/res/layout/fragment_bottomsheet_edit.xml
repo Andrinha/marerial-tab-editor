@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/tv_edit"
+        android:id="@+id/button_edit"
         style="@style/Widget.Material3.Button.TextButton.Icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         android:background="?colorOnSurface" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/tv_delete"
+        android:id="@+id/button_delete"
         style="@style/Widget.Material3.Button.TextButton.Icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

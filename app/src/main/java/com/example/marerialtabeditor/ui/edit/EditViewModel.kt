@@ -97,7 +97,19 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
         loaded.value!!.add(loadSound("6d.mp3"))
         loaded.value!!.add(loadSound("6dd.mp3"))
         loaded.value!!.add(loadSound("6e.mp3"))
-    }
+        loaded.value!!.add(loadSound("6f.mp3"))
+        loaded.value!!.add(loadSound("6fd.mp3"))
+        loaded.value!!.add(loadSound("6g.mp3"))
+        loaded.value!!.add(loadSound("6gd.mp3"))
+        loaded.value!!.add(loadSound("6a.mp3"))
+        loaded.value!!.add(loadSound("6ad.mp3"))
+        loaded.value!!.add(loadSound("6b.mp3"))
+
+        loaded.value!!.add(loadSound("7c.mp3"))
+        loaded.value!!.add(loadSound("7cd.mp3"))
+        loaded.value!!.add(loadSound("7d.mp3"))
+        loaded.value!!.add(loadSound("7dd.mp3"))
+        loaded.value!!.add(loadSound("7e.mp3"))    }
 
     fun setNote(position: Int, note: Note) {
         this.tab.value!!.song.notes[position] = note

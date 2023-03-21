@@ -35,6 +35,7 @@ class SongAdapter : RecyclerView.Adapter<SongAdapter.ViewHolder>() {
 
     fun setQuery(query: String) {
         this.query = query
+        notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
