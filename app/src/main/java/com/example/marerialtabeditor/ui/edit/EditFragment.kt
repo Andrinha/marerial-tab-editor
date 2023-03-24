@@ -85,7 +85,7 @@ class EditFragment : Fragment() {
 
             buttonPlay.setOnClickListener {
                 adapter.notifyItemRangeChanged(viewModel.playingColumn.value!!, 6)
-                playSong()
+                play()
             }
 
             buttonStop.setOnClickListener {
@@ -246,7 +246,7 @@ class EditFragment : Fragment() {
     private fun pause() {
         if (viewModel.isPlaying.value == true) {
             viewModel.isPlaying.value = false
-        } else play()
+        } else playTab()
     }
 
     private fun stop() {
@@ -256,20 +256,20 @@ class EditFragment : Fragment() {
             viewModel.playingColumn.value = -1
             return
         }
-        play()
+        playTab()
     }
 
-    private fun playSong() {
+    private fun play() {
         if (viewModel.isPlaying.value == true) {
             viewModel.isPlaying.value = false
             adapter.notifyItemRangeChanged(viewModel.playingColumn.value!! * 6, 6)
             viewModel.playingColumn.value = -1
             return
         }
-        play()
+        playTab()
     }
 
-    private fun play() {
+    private fun playTab() {
         lifecycleScope.launch {
             viewModel.isPlaying.value = true
             val bpm = viewModel.tab.value!!.song.bpm

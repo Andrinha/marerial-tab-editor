@@ -49,6 +49,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun loadSounds() {
         muteSound.value = loadSound("muted/muted.mp3")
+
 //        loaded.value!!.add(loadSound("2e.mp3"))
 //        loaded.value!!.add(loadSound("2f.mp3"))
 //        loaded.value!!.add(loadSound("2fd.mp3"))
@@ -115,6 +116,54 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
         loaded.value!!.add(loadSound("normal/7d.mp3"))
         loaded.value!!.add(loadSound("normal/7dd.mp3"))
         loaded.value!!.add(loadSound("normal/7e.mp3"))
+
+
+        loadedHarmonics.value!!.add(loadSound("harmonics/3e.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/3f.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/3fd.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/3g.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/3gd.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/3a.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/3ad.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/3b.mp3"))
+
+        loadedHarmonics.value!!.add(loadSound("harmonics/4c.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/4cd.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/4d.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/4dd.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/4e.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/4f.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/4fd.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/4g.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/4gd.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/4a.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/4ad.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/4b.mp3"))
+
+        loadedHarmonics.value!!.add(loadSound("harmonics/5c.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/5cd.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/5d.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/5dd.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/5e.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/5f.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/5fd.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/5g.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/5gd.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/5a.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/5ad.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/5b.mp3"))
+
+        loadedHarmonics.value!!.add(loadSound("harmonics/6c.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/6cd.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/6d.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/6dd.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/6e.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/6f.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/6fd.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/6g.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/6gd.mp3"))
+        loadedHarmonics.value!!.add(loadSound("harmonics/6a.mp3"))
+
     }
 
     fun setNote(position: Int, note: Note) {
@@ -156,11 +205,9 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
     private fun getHarmonicOffset(fret: Int): Int =
         when (fret) {
             12 -> 12
-            9 -> 19
-            7 -> 24
-            5 -> 31
-            4 -> 36
-            3 -> 36
+            7, 19 -> 12 + 7
+            5, 24 -> 24
+            4, 9, 16 -> 24 + 4
             else -> -1
         }
 }
