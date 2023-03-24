@@ -23,6 +23,9 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
     val playingColumn = MutableLiveData(-1)
     val selectedColumn = MutableLiveData(-1)
     val loaded = MutableLiveData(mutableListOf<Int>())
+    val loadedHarmonics = MutableLiveData(mutableListOf<Int>())
+    val copiedColumn = MutableLiveData(Array(6) { Note(0) })
+    val muteSound = MutableLiveData(-1)
     val isPlaying = MutableLiveData(false)
 
     private var streamID = 0
@@ -45,6 +48,7 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun loadSounds() {
+        muteSound.value = loadSound("muted/muted.mp3")
 //        loaded.value!!.add(loadSound("2e.mp3"))
 //        loaded.value!!.add(loadSound("2f.mp3"))
 //        loaded.value!!.add(loadSound("2fd.mp3"))
@@ -58,59 +62,59 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
 //        loaded.value!!.add(loadSound("3cd.mp3"))
 //        loaded.value!!.add(loadSound("3d.mp3"))
 //        loaded.value!!.add(loadSound("3dd.mp3"))
-        loaded.value!!.add(loadSound("3e.mp3"))
-        loaded.value!!.add(loadSound("3f.mp3"))
-        loaded.value!!.add(loadSound("3fd.mp3"))
-        loaded.value!!.add(loadSound("3g.mp3"))
-        loaded.value!!.add(loadSound("3gd.mp3"))
-        loaded.value!!.add(loadSound("3a.mp3"))
-        loaded.value!!.add(loadSound("3ad.mp3"))
-        loaded.value!!.add(loadSound("3b.mp3"))
+        loaded.value!!.add(loadSound("normal/3e.mp3"))
+        loaded.value!!.add(loadSound("normal/3f.mp3"))
+        loaded.value!!.add(loadSound("normal/3fd.mp3"))
+        loaded.value!!.add(loadSound("normal/3g.mp3"))
+        loaded.value!!.add(loadSound("normal/3gd.mp3"))
+        loaded.value!!.add(loadSound("normal/3a.mp3"))
+        loaded.value!!.add(loadSound("normal/3ad.mp3"))
+        loaded.value!!.add(loadSound("normal/3b.mp3"))
 
-        loaded.value!!.add(loadSound("4c.mp3"))
-        loaded.value!!.add(loadSound("4cd.mp3"))
-        loaded.value!!.add(loadSound("4d.mp3"))
-        loaded.value!!.add(loadSound("4dd.mp3"))
-        loaded.value!!.add(loadSound("4e.mp3"))
-        loaded.value!!.add(loadSound("4f.mp3"))
-        loaded.value!!.add(loadSound("4fd.mp3"))
-        loaded.value!!.add(loadSound("4g.mp3"))
-        loaded.value!!.add(loadSound("4gd.mp3"))
-        loaded.value!!.add(loadSound("4a.mp3"))
-        loaded.value!!.add(loadSound("4ad.mp3"))
-        loaded.value!!.add(loadSound("4b.mp3"))
+        loaded.value!!.add(loadSound("normal/4c.mp3"))
+        loaded.value!!.add(loadSound("normal/4cd.mp3"))
+        loaded.value!!.add(loadSound("normal/4d.mp3"))
+        loaded.value!!.add(loadSound("normal/4dd.mp3"))
+        loaded.value!!.add(loadSound("normal/4e.mp3"))
+        loaded.value!!.add(loadSound("normal/4f.mp3"))
+        loaded.value!!.add(loadSound("normal/4fd.mp3"))
+        loaded.value!!.add(loadSound("normal/4g.mp3"))
+        loaded.value!!.add(loadSound("normal/4gd.mp3"))
+        loaded.value!!.add(loadSound("normal/4a.mp3"))
+        loaded.value!!.add(loadSound("normal/4ad.mp3"))
+        loaded.value!!.add(loadSound("normal/4b.mp3"))
 
-        loaded.value!!.add(loadSound("5c.mp3"))
-        loaded.value!!.add(loadSound("5cd.mp3"))
-        loaded.value!!.add(loadSound("5d.mp3"))
-        loaded.value!!.add(loadSound("5dd.mp3"))
-        loaded.value!!.add(loadSound("5e.mp3"))
-        loaded.value!!.add(loadSound("5f.mp3"))
-        loaded.value!!.add(loadSound("5fd.mp3"))
-        loaded.value!!.add(loadSound("5g.mp3"))
-        loaded.value!!.add(loadSound("5gd.mp3"))
-        loaded.value!!.add(loadSound("5a.mp3"))
-        loaded.value!!.add(loadSound("5ad.mp3"))
-        loaded.value!!.add(loadSound("5b.mp3"))
+        loaded.value!!.add(loadSound("normal/5c.mp3"))
+        loaded.value!!.add(loadSound("normal/5cd.mp3"))
+        loaded.value!!.add(loadSound("normal/5d.mp3"))
+        loaded.value!!.add(loadSound("normal/5dd.mp3"))
+        loaded.value!!.add(loadSound("normal/5e.mp3"))
+        loaded.value!!.add(loadSound("normal/5f.mp3"))
+        loaded.value!!.add(loadSound("normal/5fd.mp3"))
+        loaded.value!!.add(loadSound("normal/5g.mp3"))
+        loaded.value!!.add(loadSound("normal/5gd.mp3"))
+        loaded.value!!.add(loadSound("normal/5a.mp3"))
+        loaded.value!!.add(loadSound("normal/5ad.mp3"))
+        loaded.value!!.add(loadSound("normal/5b.mp3"))
 
-        loaded.value!!.add(loadSound("6c.mp3"))
-        loaded.value!!.add(loadSound("6cd.mp3"))
-        loaded.value!!.add(loadSound("6d.mp3"))
-        loaded.value!!.add(loadSound("6dd.mp3"))
-        loaded.value!!.add(loadSound("6e.mp3"))
-        loaded.value!!.add(loadSound("6f.mp3"))
-        loaded.value!!.add(loadSound("6fd.mp3"))
-        loaded.value!!.add(loadSound("6g.mp3"))
-        loaded.value!!.add(loadSound("6gd.mp3"))
-        loaded.value!!.add(loadSound("6a.mp3"))
-        loaded.value!!.add(loadSound("6ad.mp3"))
-        loaded.value!!.add(loadSound("6b.mp3"))
+        loaded.value!!.add(loadSound("normal/6c.mp3"))
+        loaded.value!!.add(loadSound("normal/6cd.mp3"))
+        loaded.value!!.add(loadSound("normal/6d.mp3"))
+        loaded.value!!.add(loadSound("normal/6dd.mp3"))
+        loaded.value!!.add(loadSound("normal/6e.mp3"))
+        loaded.value!!.add(loadSound("normal/6f.mp3"))
+        loaded.value!!.add(loadSound("normal/6fd.mp3"))
+        loaded.value!!.add(loadSound("normal/6g.mp3"))
+        loaded.value!!.add(loadSound("normal/6gd.mp3"))
+        loaded.value!!.add(loadSound("normal/6a.mp3"))
+        loaded.value!!.add(loadSound("normal/6ad.mp3"))
+        loaded.value!!.add(loadSound("normal/6b.mp3"))
 
-        loaded.value!!.add(loadSound("7c.mp3"))
-        loaded.value!!.add(loadSound("7cd.mp3"))
-        loaded.value!!.add(loadSound("7d.mp3"))
-        loaded.value!!.add(loadSound("7dd.mp3"))
-        loaded.value!!.add(loadSound("7e.mp3"))
+        loaded.value!!.add(loadSound("normal/7c.mp3"))
+        loaded.value!!.add(loadSound("normal/7cd.mp3"))
+        loaded.value!!.add(loadSound("normal/7d.mp3"))
+        loaded.value!!.add(loadSound("normal/7dd.mp3"))
+        loaded.value!!.add(loadSound("normal/7e.mp3"))
     }
 
     fun setNote(position: Int, note: Note) {
@@ -143,5 +147,20 @@ class EditViewModel(application: Application) : AndroidViewModel(application) {
             4 -> 5
             5 -> 0
             else -> 0
+        }
+
+    fun getHarmonic(position: Int, fret: Int): Int =
+        getOffset(position) + getHarmonicOffset(fret) - 12
+
+
+    private fun getHarmonicOffset(fret: Int): Int =
+        when (fret) {
+            12 -> 12
+            9 -> 19
+            7 -> 24
+            5 -> 31
+            4 -> 36
+            3 -> 36
+            else -> -1
         }
 }
