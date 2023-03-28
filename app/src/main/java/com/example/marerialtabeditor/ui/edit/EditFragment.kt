@@ -122,16 +122,46 @@ class EditFragment : Fragment() {
 
                 val focus = viewModel.focus.value!!
                 val note = adapter.getNote(focus)
-                note.fret++
+
+                if (note.type == Note.Type.HARMONIC) {
+                    note.fret = when (note.fret) {
+                        24 -> -1
+                        19 -> 24
+                        16 -> 19
+                        12 -> 16
+                        9 -> 12
+                        7 -> 9
+                        5 -> 7
+                        4 -> 5
+                        else -> 4
+                    }
+                } else {
+                    note.fret++
+                }
                 viewModel.setNote(focus, note)
-                if (note.fret != -1)
-                    viewModel.playSound(
+
+                if (note.fret == -1)
+                    return@setOnClickListener
+
+                val sound = when (note.type) {
+                    Note.Type.DEFAULT -> {
                         viewModel.loaded.value?.getOrNull(
                             note.fret + viewModel.getOffset(
                                 focus
                             )
                         ) ?: -1
-                    )
+                    }
+                    Note.Type.HARMONIC -> {
+                        viewModel.loadedHarmonics.value?.getOrNull(
+                            viewModel.getHarmonic(focus, note.fret)
+                        ) ?: -1
+                    }
+                    else -> {
+                        viewModel.muteSound.value!!
+                    }
+                }
+
+                viewModel.playSound(sound)
             }
 
             buttonFretDec.setOnClickListener {
@@ -140,16 +170,44 @@ class EditFragment : Fragment() {
 
                 val focus = viewModel.focus.value!!
                 val note = adapter.getNote(focus)
-                note.fret--
+                if (note.type == Note.Type.HARMONIC) {
+                    note.fret = when (note.fret) {
+                        24 -> 19
+                        19 -> 16
+                        16 -> 12
+                        12 -> 9
+                        9 -> 7
+                        7 -> 5
+                        5 -> 4
+                        4 -> -1
+                        else -> 24
+                    }
+                } else {
+                    note.fret--
+                }
                 viewModel.setNote(focus, note)
-                if (note.fret != -1)
-                    viewModel.playSound(
+                if (note.fret == -1)
+                    return@setOnClickListener
+
+                val sound = when (note.type) {
+                    Note.Type.DEFAULT -> {
                         viewModel.loaded.value?.getOrNull(
                             note.fret + viewModel.getOffset(
                                 focus
                             )
                         ) ?: -1
-                    )
+                    }
+                    Note.Type.HARMONIC -> {
+                        viewModel.loadedHarmonics.value?.getOrNull(
+                            viewModel.getHarmonic(focus, note.fret)
+                        ) ?: -1
+                    }
+                    else -> {
+                        viewModel.muteSound.value!!
+                    }
+                }
+
+                viewModel.playSound(sound)
             }
 
             buttonFlagDefault.setOnClickListener {
@@ -189,14 +247,33 @@ class EditFragment : Fragment() {
             buttonBpmInc.setOnClickListener {
                 if (viewModel.tab.value!!.song.bpm < 240) {
                     viewModel.tab.value!!.song.bpm = viewModel.tab.value!!.song.bpm.inc()
-                    binding.textBpm.text = viewModel.tab.value!!.song.bpm.toString()
+                    binding.textBpm.setText(viewModel.tab.value!!.song.bpm.toString())
                 }
             }
             buttonBpmDec.setOnClickListener {
                 if (viewModel.tab.value!!.song.bpm > 40) {
                     viewModel.tab.value!!.song.bpm = viewModel.tab.value!!.song.bpm.dec()
-                    binding.textBpm.text = viewModel.tab.value!!.song.bpm.toString()
+                    binding.textBpm.setText(viewModel.tab.value!!.song.bpm.toString())
                 }
+            }
+            textBpm.addTextChangedListener {
+                val bpm = it.toString().toIntOrNull()
+                if (bpm != null && viewModel.tab.value!!.song.bpm != bpm && bpm in 40..240) {
+                    viewModel.tab.value!!.song.bpm = bpm
+                }
+            }
+            textFret.addTextChangedListener {
+                if (viewModel.focus.value == null)
+                    return@addTextChangedListener
+
+                val focus = viewModel.focus.value!!
+                val note = adapter.getNote(focus)
+                val newFret = it.toString().toIntOrNull()
+                if (newFret == null || note.fret == newFret || newFret !in 0..24)
+                    return@addTextChangedListener
+
+                note.fret = newFret
+                viewModel.setNote(focus, note)
             }
             buttonCopy.setOnClickListener {
                 if (viewModel.focus.value == null)
@@ -226,7 +303,7 @@ class EditFragment : Fragment() {
                 adapter.setData(it.song.notes)
                 binding.editName.setText(it.song.name)
                 binding.editBand.setText(it.song.band)
-                binding.textBpm.text = it.song.bpm.toString()
+                binding.textBpm.setText(it.song.bpm.toString())
             }
             focus.observe(viewLifecycleOwner) {
                 adapter.setFocus(it)
@@ -235,7 +312,7 @@ class EditFragment : Fragment() {
                     Note.Type.HARMONIC -> binding.toggleButton.check(R.id.button_flag_harmonic)
                     Note.Type.MUTED -> binding.toggleButton.check(R.id.button_flag_muted)
                 }
-                binding.textFret.text = adapter.getNote(it).toString()
+                binding.textFret.setText(adapter.getNote(it).toString())
             }
             playingColumn.observe(viewLifecycleOwner) {
                 adapter.setColumn(it)
@@ -266,6 +343,8 @@ class EditFragment : Fragment() {
             viewModel.playingColumn.value = -1
             return
         }
+        if (viewModel.focus.value != null)
+            viewModel.playingColumn.value = viewModel.focus.value!! / 6
         playTab()
     }
 

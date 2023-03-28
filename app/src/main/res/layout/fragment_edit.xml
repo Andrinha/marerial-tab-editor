@@ -101,12 +101,14 @@
                             app:icon="@drawable/round_arrow_back_24"
                             app:iconGravity="textStart" />
 
-                        <TextView
+                        <EditText
                             android:id="@+id/text_bpm"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center"
+                            android:maxLength="3"
+                            android:inputType="number"
                             android:textSize="20sp"
                             tools:text="120" />
 
@@ -295,12 +297,14 @@
                     app:icon="@drawable/round_arrow_back_24"
                     app:iconGravity="textStart" />
 
-                <TextView
+                <EditText
                     android:id="@+id/text_fret"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="2"
                     android:textSize="20sp"
                     tools:text="10" />
 
