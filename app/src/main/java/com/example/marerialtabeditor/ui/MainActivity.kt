@@ -1,6 +1,9 @@
 package com.example.marerialtabeditor.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.navigation.findNavController
@@ -9,6 +12,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.marerialtabeditor.R
 import com.example.marerialtabeditor.databinding.ActivityMainBinding
+import com.example.marerialtabeditor.ui.about.AboutActivity
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,4 +45,18 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_info) {
+            val intent = Intent(this, AboutActivity::class.java)
+            startActivity(intent)
+        }
+        return true
+    }
+
 }
